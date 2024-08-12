@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using AppDatabase; 
+
 namespace AppUserPanel.Windows
 {
      
@@ -20,7 +20,7 @@ namespace AppUserPanel.Windows
         public MainWindow()
         {
            
-            InitializeComponent();
+    //        InitializeComponent();
            
         }
      
