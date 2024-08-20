@@ -26,6 +26,7 @@ namespace AppLibrary.Data
         public DbSet<OrderItem> OrderItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+             
 
             modelBuilder.Entity<PhotoProduct>()
                 .Property(p => p.Size)

@@ -1,0 +1,45 @@
+﻿<Page x:Class="AppAdminPanel.Pages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:AppAdminPanel.Pages"
+      mc:Ignorable="d" x:Name="mainp"
+      d:DesignHeight="500" d:DesignWidth="1000"
+      Title="MainPage">
+
+    <Grid  Height="500" Width="1000">
+
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#462AD8" Offset="0"/>
+                <GradientStop Color="#DA34AE" Offset="0.75"/>
+                <GradientStop Color="#8A16C1" Offset="1"/>
+            </LinearGradientBrush>
+            
+        </Grid.Background>
+
+        <Button Command="{Binding CloseCommand}"
+                CommandParameter="{Binding ElementName=mainp}"
+                BorderBrush="Transparent"
+                Background="Transparent"
+                Margin="918,0,-2,468" RenderTransformOrigin="0.5,0.5">
+            
+            <Grid>
+                <Image Source="/Images/exitt.png"
+                       RenderTransformOrigin="0.418,0.509" Margin="24,-2,-24,2"/>
+            </Grid>
+        </Button>
+
+        <Button Width="100"
+                Foreground="AliceBlue"
+                Background="Transparent"
+                Style="{DynamicResource MaterialDesignFlatLightButton}"
+                Content="SignIn"
+                Command="{Binding SignInCommand}"
+                CommandParameter="{Binding ElementName=mainp}"
+                Margin="440,328,460,140"   />
+
+    </Grid>
+</Page>
