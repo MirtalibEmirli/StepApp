@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AdmnPanel.ViewModel;
+using AppAdminPanel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,7 @@ namespace AdmnPanel.Pages
         public AddCategoryPage()
         {
             InitializeComponent();
+            DataContext = App.Container.GetInstance<AddCategoryPageViewModel>();
         }
     }
 }

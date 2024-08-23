@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AdmnPanel.ViewModel;
+using AppAdminPanel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +17,13 @@ using System.Windows.Shapes;
 
 namespace AdmnPanel.Pages
 {
-    /// <summary>
-    /// Interaction logic for CategoryPage.xaml
-    /// </summary>
+    
     public partial class CategoryPage : Page
     {
         public CategoryPage()
         {
             InitializeComponent();
+            DataContext = App.Container.GetInstance<CategoryViewModel>();
         }
     }
 }

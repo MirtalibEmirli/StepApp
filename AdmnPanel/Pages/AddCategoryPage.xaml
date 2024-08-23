@@ -3,12 +3,48 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:AdmnPanel.Pages"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"  Name="page"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddCategoryPage">
 
-    <Grid Background="AliceBlue">
-        
+    <Grid Background="#F7F9FC">
+        <Border >
+            <Border 
+    BorderThickness="2"
+    Opacity="0.95"  >
+
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#462AD8" Offset="0"/>
+                        <GradientStop Color="#DA34AE" Offset="0.75"/>
+                        <GradientStop Color="#8A16C1" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="DarkBlue" Offset="0"/>
+                        <GradientStop Color="DarkGray" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+
+        </Border>
+        <Border CornerRadius="10" BorderBrush="#007ACC" BorderThickness="1" Background="White" Padding="20" Width="500" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <StackPanel>
+                <TextBlock Text="Add Category" FontSize="30" FontWeight="Bold" Foreground="#007ACC" TextAlignment="Center" Margin="0,0,0,20"/>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Name" FontSize="14" FontWeight="SemiBold" Foreground="#4A4A4A" Margin="0,0,0,5"/>
+                    <TextBox x:Name="nametext" Text="{Binding Nametxt}" Height="35" FontSize="14" Padding="5" BorderBrush="#E0E0E0" BorderThickness="1" Background="#F0F0F0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20,10,0,0">
+                    <Button Command="{Binding AddCommand}" Content="Add" Width="120" Height="40" Background="#007ACC" Foreground="White" FontWeight="Bold" BorderBrush="#007ACC" Margin="0,0,10,0" Padding="5"/>
+                    <Button CommandParameter="{Binding ElementName=page}" Command="{Binding BackCommand}"  Content="Back" Width="120" Height="40" Background="White" Foreground="#007ACC" FontWeight="Bold" BorderBrush="#007ACC" Padding="5"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

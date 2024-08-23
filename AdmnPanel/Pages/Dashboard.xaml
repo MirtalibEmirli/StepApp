@@ -109,7 +109,7 @@
             </Button>
 
             <Grid Grid.Row="1">
-                
+                <!--burda listview qoy productlar gorunsun-->
             </Grid>
         </Grid>
     </Grid>

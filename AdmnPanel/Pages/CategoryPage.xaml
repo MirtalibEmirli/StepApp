@@ -47,7 +47,8 @@
         </Border>
         <StackPanel  Orientation="Horizontal" Grid.Row="1">
             <Button Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=page}" Margin="10" Style="{StaticResource menubutton}" Background="Transparent" Name="Add"   Height="60" Width="110"  Foreground="Black" >Add</Button>
-            <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=page}" Margin="10" Style="{StaticResource menubutton}" Background="Transparent" Name="Delete"   Height="60" Width="110"  Foreground="Black"  >Delete</Button>
+            <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=categoryview }" Margin="10" Style="{StaticResource menubutton}" Background="Transparent" Name="Delete"   Height="60" Width="110"  Foreground="Black"  >Delete</Button>
+            <Button Command="{Binding LoadCommand}" CommandParameter="{Binding ElementName=page }" Margin="10" Style="{StaticResource menubutton}" Background="Transparent" Name="Load"   Height="60" Width="110"  Foreground="Black"  >Refresh</Button>
             <Button Command="{Binding BackCommand }" CommandParameter="{Binding ElementName=page}" Margin="10" Style="{StaticResource menubutton}" Background="Transparent" Name="Back"  Height="60" Width="110" Foreground="Black"  >Back</Button>
         </StackPanel>
     </Grid>
