@@ -1,4 +1,6 @@
-﻿using AppAdminPanel.Commands;
+﻿using AdmnPanel.Pages;
+using AppAdminPanel.Commands;
+using AppAdminPanel.Pages;
 using AppLibrary.Data;
 using AppLibrary.Models;
 using System;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace AppAdminPanel.ViewModel;
 
@@ -63,7 +66,11 @@ public class SignInPageViewModel : BaseViewModel
 
     private void EnterExecute(object? obj)
     {
-        MessageBox.Show("Ela");
+        if (obj is Page page)
+        {
+
+            page.NavigationService.Navigate(App.Container.GetInstance<Dashboard>());
+        }
     }
 
     private void CloseCommandExecute(object? obj)

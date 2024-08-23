@@ -1,4 +1,6 @@
-﻿using AppAdminPanel.Pages;
+﻿using AdmnPanel.Pages;
+using AdmnPanel.ViewModel;
+using AppAdminPanel.Pages;
 using AppAdminPanel.ViewModel;
 using System.Configuration;
 using System.Data;
@@ -19,12 +21,14 @@ namespace AppAdminPanel
         {
             Container.RegisterSingleton<MainPage>();
             Container.RegisterSingleton<SignInPage>();
+            Container.RegisterSingleton<Dashboard>();
         }
 
         public void RegisterViewModels()
         {
             Container.RegisterSingleton<MainPageViewModel>();
             Container.RegisterSingleton<SignInPageViewModel>();
+            Container.RegisterSingleton<DashBoardViewModel>();
         }
     }
 }

@@ -51,8 +51,8 @@ public class MainPageViewModel : BaseViewModel
     {
         if (obj is Page page)
         {
-            var signInPage = new SignInPage();
-            page.NavigationService.Navigate(signInPage);
+      
+            page.NavigationService.Navigate(App.Container.GetInstance<SignInPage>());
         }
     }
 

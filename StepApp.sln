@@ -4,11 +4,9 @@ VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppUserPanel", "AppUserPanel\AppUserPanel.csproj", "{915FD3C2-79D7-49E9-97F5-B9E348603188}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppAdminPanel", "AppAdminPanel\AppAdminPanel.csproj", "{FBAACB3C-B892-421D-A00E-D3F89DCE7D82}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppLibrary", "AppLibrary\AppLibrary.csproj", "{D125330F-B42F-4049-AF8F-4DAD0BCC34B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdmnPanel", "AdmnPanel\AdmnPanel.csproj", "{049A1E99-5011-4B10-AB20-B9C058EC64CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdmnPanel", "AdmnPanel\AdmnPanel.csproj", "{049A1E99-5011-4B10-AB20-B9C058EC64CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +18,6 @@ Global
 		{915FD3C2-79D7-49E9-97F5-B9E348603188}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{915FD3C2-79D7-49E9-97F5-B9E348603188}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{915FD3C2-79D7-49E9-97F5-B9E348603188}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBAACB3C-B892-421D-A00E-D3F89DCE7D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBAACB3C-B892-421D-A00E-D3F89DCE7D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBAACB3C-B892-421D-A00E-D3F89DCE7D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBAACB3C-B892-421D-A00E-D3F89DCE7D82}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D125330F-B42F-4049-AF8F-4DAD0BCC34B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D125330F-B42F-4049-AF8F-4DAD0BCC34B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D125330F-B42F-4049-AF8F-4DAD0BCC34B5}.Release|Any CPU.ActiveCfg = Release|Any CPU

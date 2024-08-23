@@ -1,0 +1,113 @@
+﻿<Page x:Class="AdmnPanel.Pages.Dashboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AdmnPanel.Pages"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="1000"
+      Title="Dashboard">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="210"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border CornerRadius="10 0 0 10">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#223266" Offset="0"/>
+                    <GradientStop Color="#27396b" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <!-- Username -->
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 35 0 0">
+                    <Border CornerRadius="10" Width="40" Height="40">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#7f7cf1" Offset="0"/>
+                                <GradientStop Color="#d3b7ff" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock Text="A" Foreground="#ffffff" FontSize="22" FontWeight="SemiBold"
+                                   TextAlignment="Center" VerticalAlignment="Center" Margin="3 0 0 2"/>
+                    </Border>
+                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="Admin" FontSize="15" Margin="0 0 0 5" Foreground="#c2cfff"/>
+                        <TextBlock Text="Beta 1.3" FontSize="11" Foreground="#7788bf"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Separator Height="0.8" Margin="20 30" Background="#46558a"/>
+
+                <!-- Menu buttons -->
+                <Button Style="{StaticResource menubutton}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Home" Margin="5"/>
+                        <TextBlock Text="Dashboard"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource menubutton}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Users" Margin="5"/>
+                        <TextBlock Text="Users"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource menubutton}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Photo" Margin="5"/>
+                        <TextBlock Text="ProductPhoto"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource menubutton}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="ProductHunt" Margin="5"/>
+                        <TextBlock Text="Product"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource menubutton}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Barcode" Margin="5"/>
+                        <TextBlock Text="Category"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Section -->
+        <Grid Grid.Column="1">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                    <GradientStop Color="#223266" Offset="0"/>
+                    <GradientStop Color="#2c386c" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Close Button with Image -->
+            <Button Grid.Row="0" Grid.Column="1" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Top" 
+                    Width="30" 
+                    Height="30" 
+                    Content="X"
+                    Background="Red" 
+                   
+                    FontSize="16"
+                    Click="CloseButton_Click"
+                    BorderThickness="0"
+                    Margin="0 10 10 0">
+
+                
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

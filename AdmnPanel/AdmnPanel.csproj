@@ -12,6 +12,7 @@
     <None Remove="Images\2s.png" />
     <None Remove="Images\exitt.png" />
     <None Remove="Images\marketicon.png" />
+    <None Remove="Images\shopping_cart.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,12 +25,19 @@
     <Content Include="Images\marketicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\shopping_cart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 	
 	<ItemGroup>
 	  <ProjectReference Include="..\AppLibrary\AppLibrary.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="font-awesome" Version="4.7.0" />
+		<PackageReference Include="Font.Awesome" Version="5.15.4" />
+		<PackageReference Include="FontAwesome" Version="4.7.0" />
+		<PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
 		<PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
 		<PackageReference Include="SimpleInjector" Version="5.4.6" />
 	</ItemGroup>
