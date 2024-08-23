@@ -5,9 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AdmnPanel.Pages"
       xmlns:fa="http://schemas.fontawesome.io/icons/"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"  Name="dshb"
       d:DesignHeight="500" d:DesignWidth="1000"
-      Title="Dashboard">
+      Title="Dashboard"> 
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -45,31 +45,31 @@
                 <Separator Height="0.8" Margin="20 30" Background="#46558a"/>
 
                 <!-- Menu buttons -->
-                <Button Style="{StaticResource menubutton}">
+                <Button Command="{Binding DashboardCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="Home" Margin="5"/>
                         <TextBlock Text="Dashboard"/>
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource menubutton}">
+                <Button Command="{Binding UsersCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="Users" Margin="5"/>
                         <TextBlock Text="Users"/>
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource menubutton}">
+                <Button   Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="Photo" Margin="5"/>
                         <TextBlock Text="ProductPhoto"/>
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource menubutton}">
+                <Button Command="{Binding AddProductCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="ProductHunt" Margin="5"/>
-                        <TextBlock Text="Product"/>
+                        <TextBlock Text="Add Product"/>
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource menubutton}">
+                <Button CommandParameter="{Binding ElementName=dshb}" Command="{Binding CategoryCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="Barcode" Margin="5"/>
                         <TextBlock Text="Category"/>
@@ -92,7 +92,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Close Button with Image -->
+            <!-- Close Button   -->
             <Button Grid.Row="0" Grid.Column="1" 
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Top" 
@@ -106,8 +106,11 @@
                     BorderThickness="0"
                     Margin="0 10 10 0">
 
-                
             </Button>
+
+            <Grid Grid.Row="1">
+                
+            </Grid>
         </Grid>
     </Grid>
 </Page>

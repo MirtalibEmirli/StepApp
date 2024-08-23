@@ -1,0 +1,54 @@
+﻿<Page x:Class="AdmnPanel.Pages.CategoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AdmnPanel.Pages"
+      mc:Ignorable="d" Name="page"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CategoryPage">
+
+
+    <Grid  >
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="BurlyWood" Offset="0"/>
+                <GradientStop Color="DarkSlateGray" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Margin="10" BorderThickness="2" Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#462AD8" Offset="0"/>
+                    <GradientStop Color="#DA34AE" Offset="0.75"/>
+                    <GradientStop Color="#8A16C1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="DarkGray" Offset="0"/>
+                    <GradientStop Color="DarkKhaki" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <ListView Grid.Row="0" x:Name="categoryview" ItemsSource="{Binding Categories}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" Width="110" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="ID" Width="110" DisplayMemberBinding="{Binding Id}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+        <StackPanel  Orientation="Horizontal" Grid.Row="1">
+            <Button Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=page}" Margin="10" Style="{StaticResource menubutton}" Background="Transparent" Name="Add"   Height="60" Width="110"  Foreground="Black" >Add</Button>
+            <Button Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=page}" Margin="10" Style="{StaticResource menubutton}" Background="Transparent" Name="Delete"   Height="60" Width="110"  Foreground="Black"  >Delete</Button>
+            <Button Command="{Binding BackCommand }" CommandParameter="{Binding ElementName=page}" Margin="10" Style="{StaticResource menubutton}" Background="Transparent" Name="Back"  Height="60" Width="110" Foreground="Black"  >Back</Button>
+        </StackPanel>
+    </Grid>
+</Page>

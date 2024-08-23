@@ -1,6 +1,4 @@
-﻿using AdmnPanel.ViewModel;
-using AppAdminPanel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,20 +16,13 @@ using System.Windows.Shapes;
 namespace AdmnPanel.Pages
 {
     /// <summary>
-    /// Interaction logic for Dashboard.xaml
+    /// Interaction logic for CategoryPage.xaml
     /// </summary>
-    public partial class Dashboard : Page
+    public partial class CategoryPage : Page
     {
-        public Dashboard()
+        public CategoryPage()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<DashBoardViewModel>();
         }
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this)?.Close();
-        }
-
     }
-
 }

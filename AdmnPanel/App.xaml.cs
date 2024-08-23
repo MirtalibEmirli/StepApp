@@ -22,6 +22,9 @@ namespace AppAdminPanel
             Container.RegisterSingleton<MainPage>();
             Container.RegisterSingleton<SignInPage>();
             Container.RegisterSingleton<Dashboard>();
+            Container.RegisterSingleton<AddCategoryPage>();
+            Container.RegisterSingleton<CategoryPage>();
+
         }
 
         public void RegisterViewModels()
@@ -29,6 +32,8 @@ namespace AppAdminPanel
             Container.RegisterSingleton<MainPageViewModel>();
             Container.RegisterSingleton<SignInPageViewModel>();
             Container.RegisterSingleton<DashBoardViewModel>();
+            Container.RegisterSingleton<AddCategoryPageViewModel>();
+            Container.RegisterSingleton<CategoryViewModel>();
         }
     }
 }
