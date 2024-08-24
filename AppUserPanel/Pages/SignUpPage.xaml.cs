@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppUserPanel.Viewmodels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,15 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AppUserPanel.Windows
+namespace AppUserPanel.Pages
 {
-    
-    public partial class MainWindow : NavigationWindow
+    /// <summary>
+    /// Interaction logic for SignUpPage.xaml
+    /// </summary>
+    public partial class SignUpPage : Page
     {
-
-        public MainWindow()
+        public SignUpPage()
         {
             InitializeComponent();
+            DataContext = App.Container.GetInstance<SignupViewModel>();
         }
     }
 }

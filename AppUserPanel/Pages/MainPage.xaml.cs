@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppUserPanel.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,15 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AppUserPanel.Windows
+namespace AppUserPanel.Pages
 {
-    
-    public partial class MainWindow : NavigationWindow
+     
+    public partial class MainPage : Page
     {
-
-        public MainWindow()
+        public MainPage()
         {
             InitializeComponent();
+            DataContext = App.Container.GetInstance<MainViewModel>();
+
+                
         }
     }
 }

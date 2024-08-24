@@ -25,7 +25,6 @@
                 BorderBrush="Transparent"
                 Background="Transparent"
                 Margin="918,0,-2,468" RenderTransformOrigin="0.5,0.5">
-            
             <Grid>
                 <Image Source="/Images/exitt.png"
                        RenderTransformOrigin="0.418,0.509" Margin="24,-2,-24,2"/>

@@ -13,13 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AppUserPanel.Windows
+namespace AppUserPanel.Pages
 {
-    
-    public partial class MainWindow : NavigationWindow
+    /// <summary>
+    /// Interaction logic for SignInPage.xaml
+    /// </summary>
+    public partial class SignInPage : Page
     {
-
-        public MainWindow()
+        public SignInPage()
         {
             InitializeComponent();
         }
