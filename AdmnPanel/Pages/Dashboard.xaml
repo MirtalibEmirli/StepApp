@@ -7,8 +7,10 @@
       xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d"  Name="dshb"
       d:DesignHeight="500" d:DesignWidth="1000"
-      Title="Dashboard"> 
-
+      Title="Dashboard">
+    <Page.Resources>
+        <local:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="210"/>
@@ -57,12 +59,12 @@
                         <TextBlock Text="Users"/>
                     </StackPanel>
                 </Button>
-                <Button   Style="{StaticResource menubutton}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:FontAwesome Icon="Photo" Margin="5"/>
-                        <TextBlock Text="ProductPhoto"/>
-                    </StackPanel>
-                </Button>
+                <!--<Button   Style="{StaticResource menubutton}">
+    <StackPanel Orientation="Horizontal">
+        <fa:FontAwesome Icon="Photo" Margin="5"/>
+        <TextBlock Text="ProductPhoto"/>
+    </StackPanel>
+</Button>-->
                 <Button CommandParameter="{Binding ElementName=dshb}" Command="{Binding AddProductCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="ProductHunt" Margin="5"/>
@@ -108,8 +110,31 @@
 
             </Button>
 
-            <Grid Grid.Row="1">
-                <!--burda listview qoy productlar gorunsun-->
+            <Grid Grid.Row="1" Margin="10">
+                <ListView ItemsSource="{Binding Products}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#D3D3D3" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="80" Height="80" Margin="5">
+                                        <Image.Source>
+                                            <Binding Path="Photo.Bytes" Converter="{StaticResource ByteArrayToImageConverter}"/>
+                                        </Image.Source>
+                                    </Image>
+                                    <StackPanel Margin="10,0,0,0">
+                                        <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="#FFFFFF"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="14" Foreground="#CCCCCC"/>
+                                        <TextBlock Text="{Binding Quantity, StringFormat='Quantity: {0}'}" FontSize="14" Foreground="#CCCCCC"/>
+                                        <TextBlock Text="{Binding Category.Name}" FontSize="14" Foreground="#CCCCCC"/>
+                                        <TextBlock Text="{Binding Photo.Description}" FontSize="14" Foreground="#CCCCCC"/>
+                                        <TextBlock Text="{Binding Photo.FileExtension}" FontSize="12" Foreground="#AAAAAA"/>
+                                        <TextBlock Text="{Binding Photo.Size, StringFormat='Size: {0:N2} MB'}" FontSize="12" Foreground="#AAAAAA"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Grid>
     </Grid>

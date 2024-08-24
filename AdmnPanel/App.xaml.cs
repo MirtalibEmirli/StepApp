@@ -31,7 +31,7 @@ namespace AppAdminPanel
         {
             Container.RegisterSingleton<MainPageViewModel>();
             Container.RegisterSingleton<SignInPageViewModel>();
-            Container.RegisterSingleton<DashBoardViewModel>();
+            Container.RegisterSingleton<DashboardViewModel>();
             Container.RegisterSingleton<AddCategoryPageViewModel>();
             Container.RegisterSingleton<CategoryViewModel>();
             Container.RegisterSingleton<AddProductViewModel>();

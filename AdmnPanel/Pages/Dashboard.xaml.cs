@@ -25,7 +25,7 @@ namespace AdmnPanel.Pages
         public Dashboard()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<DashBoardViewModel>();
+            DataContext = App.Container.GetInstance<DashboardViewModel>();
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
