@@ -9,7 +9,7 @@ namespace AppLibrary.Models
     public class Cart : BaseEntity
     {
         public int UserId { get; set; }
-        public string Items { get; set; } 
+        public IEnumerable<Product> Items { get; set; }
         public User User { get; set; }
 
     }

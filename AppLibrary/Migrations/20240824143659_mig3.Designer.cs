@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppLibrary.Migrations
 {
     [DbContext(typeof(MirtalibDbContext))]
-    [Migration("20240820103445_migg")]
-    partial class migg
+    [Migration("20240824143659_mig3")]
+    partial class mig3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,9 +67,6 @@ namespace AppLibrary.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Items")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -131,9 +128,6 @@ namespace AppLibrary.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Items")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -258,6 +252,9 @@ namespace AppLibrary.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("LikedItemId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -271,6 +268,8 @@ namespace AppLibrary.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("LikedItemId");
 
                     b.ToTable("Products");
                 });
@@ -298,12 +297,27 @@ namespace AppLibrary.Migrations
                     b.Property<byte[]>("Password")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<byte[]>("Salt")
+                    b.Property<byte[]>("Photo")
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CartProduct", b =>
+                {
+                    b.Property<int>("CartsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartsId", "ItemsId");
+
+                    b.HasIndex("ItemsId");
+
+                    b.ToTable("CartProduct");
                 });
 
             modelBuilder.Entity("OrderProduct", b =>
@@ -414,7 +428,26 @@ namespace AppLibrary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AppLibrary.Models.LikedItem", null)
+                        .WithMany("Items")
+                        .HasForeignKey("LikedItemId");
+
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("CartProduct", b =>
+                {
+                    b.HasOne("AppLibrary.Models.Cart", null)
+                        .WithMany()
+                        .HasForeignKey("CartsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AppLibrary.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("OrderProduct", b =>
@@ -435,6 +468,11 @@ namespace AppLibrary.Migrations
             modelBuilder.Entity("AppLibrary.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("AppLibrary.Models.LikedItem", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.Product", b =>

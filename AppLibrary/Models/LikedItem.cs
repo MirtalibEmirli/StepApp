@@ -10,6 +10,6 @@ public class LikedItem : BaseEntity
 {
     public int UserId { get; set; }
     public User User { get; set; } = null!;
-    public string? Items { get; set; }
+    public IEnumerable<Product> Items { get; set; }
 
 }

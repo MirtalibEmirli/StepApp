@@ -15,8 +15,7 @@ namespace AppLibrary.Models
 
         public IEnumerable<Order> History { get; } = [];
         public byte[] Password { get; set; } = null!;
-        public byte[] Salt { get; set; } = null!;
+        public byte[] Photo { get; set; } = null!;
         public IEnumerable<CreditCard> CreditCards { get; } = [];
-
     }
 }
