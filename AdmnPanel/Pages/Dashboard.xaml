@@ -63,7 +63,7 @@
                         <TextBlock Text="ProductPhoto"/>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding AddProductCommand}" Style="{StaticResource menubutton}">
+                <Button CommandParameter="{Binding ElementName=dshb}" Command="{Binding AddProductCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="ProductHunt" Margin="5"/>
                         <TextBlock Text="Add Product"/>

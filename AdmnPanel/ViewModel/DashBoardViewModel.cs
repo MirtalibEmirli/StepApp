@@ -18,10 +18,20 @@ namespace AdmnPanel.ViewModel
    public class DashBoardViewModel:InotifyService
     {
         public ICommand CategoryCommand { get; set; }
+        public ICommand AddProductCommand { get; set; }
 
         public DashBoardViewModel()
         {
             CategoryCommand = new RelayCommand(CategoryCommandExecute);
+            AddProductCommand = new RelayCommand(AddProductExecute);
+        }
+
+        private void AddProductExecute(object? obj)
+        {
+            if (obj is Page page)
+            {
+                page.NavigationService.Navigate(App.Container.GetInstance<AddProductPage>());
+            }
         }
 
         private void CategoryCommandExecute(object? obj)

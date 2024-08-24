@@ -17,13 +17,15 @@ using System.Windows.Shapes;
 
 namespace AdmnPanel.Pages
 {
-   
-    public partial class AddCategoryPage : Page
+    /// <summary>
+    /// Interaction logic for AddProductPage.xaml
+    /// </summary>
+    public partial class AddProductPage : Page
     {
-        public AddCategoryPage()
+        public AddProductPage()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<AddCategoryPageViewModel>();
+            DataContext = App.Container.GetInstance<AddProductViewModel>();
         }
     }
 }

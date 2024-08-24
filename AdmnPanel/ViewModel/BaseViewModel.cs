@@ -20,5 +20,7 @@ namespace AppAdminPanel.ViewModel
                 page.NavigationService.GoBack();
         }
         #endregion
+
+
     }
 }
