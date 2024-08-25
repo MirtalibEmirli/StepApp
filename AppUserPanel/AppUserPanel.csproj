@@ -73,7 +73,6 @@
     </PackageReference>
     <PackageReference Include="SimpleInjector" Version="5.5.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="AppLibrary">
       <HintPath>..\AppLibrary\bin\Debug\net8.0\AppLibrary.dll</HintPath>

@@ -35,11 +35,12 @@
                                 <GradientStop Color="#d3b7ff" Offset="1"/>
                             </LinearGradientBrush>
                         </Border.Background>
-                        <TextBlock Text="A" Foreground="#ffffff" FontSize="22" FontWeight="SemiBold"
-                                   TextAlignment="Center" VerticalAlignment="Center" Margin="3 0 0 2"/>
+
+                        <Image Source="/Images/mee.jpg" Margin="-16,-46,-10,-50"></Image>
                     </Border>
-                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                        <TextBlock Text="Admin" FontSize="15" Margin="0 0 0 5" Foreground="#c2cfff"/>
+
+                    <StackPanel Margin="10 0 0 0" Width="117" VerticalAlignment="Center" Height="60">
+                        <TextBlock Text="Admin" FontSize="15" Margin="0 0 0 5" Foreground="#c2cfff" Width="112" Height="19"/>
                         <TextBlock Text="Beta 1.3" FontSize="11" Foreground="#7788bf"/>
                     </StackPanel>
                 </StackPanel>

@@ -11,7 +11,7 @@ namespace AppUserPanel.ViewModels
     {
         private MirtalibDbContext dbContext;
         private Product _selectedProduct;
-        public Product SelectedProduct
+        public Product SelectedProduct 
         {
             get { return _selectedProduct; }
             set
@@ -46,8 +46,20 @@ namespace AppUserPanel.ViewModels
 
         private void LoadProducts()
         {
-            var cartItems = dbContext.Carts.Include(x=>x.Items).ThenInclude(x=>x.Photo).FirstOrDefault(x => x.UserId == PasswordHasher.UserId).Items;
-            Products = new ObservableCollection<Product>(cartItems);
+            var cart = dbContext.Carts
+                                .Include(x => x.Items)
+                                .ThenInclude(x => x.Photo)
+                                .FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+
+            if (cart != null && cart.Items != null)
+            {
+                Products = new ObservableCollection<Product>(cart.Items);
+            }
+            else
+            {
+                Products = new ObservableCollection<Product>();
+            }
         }
+
     }
 }
