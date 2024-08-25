@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-   
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
 Name="p"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -24,38 +24,47 @@ Name="p"
                     <GradientStop Color="DarkRed" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
-            <StackPanel Height="430" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Height="443" HorizontalAlignment="Center" VerticalAlignment="Center" Width="568">
                 <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
                     <Label Content="Register" FontSize="35" Foreground="White" FontWeight="DemiBold" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Foreground="White" Content="First Name" Width="150" />
-                    <TextBox Width="400" Text="{Binding NewUser.Firstname, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Foreground="White" Width="400" Text="{Binding NewUser.Firstname, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Foreground="White" Content="Last Name" Width="150" />
-                    <TextBox Width="400" Text="{Binding NewUser.LatsName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Foreground="White" Width="400" Text="{Binding NewUser.LatsName, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10">
+                    <Label Foreground="White" Content="UserName" Width="150" />
+                    <TextBox Foreground="White" Width="400" Text="{Binding NewUser.UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Foreground="White" Content="Email" Width="150" />
-                    <TextBox Width="400" Text="{Binding NewUser.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Foreground="White" Width="400" Text="{Binding NewUser.Email, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Foreground="White" Content="Verification Code" Width="150" />
-                    <TextBox Width="400" Text="{Binding Codemail, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Foreground="White" Width="400" Text="{Binding Codemail, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel>
-                    <DatePicker SelectedDate="{Binding Birthdate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <DatePicker
+                   Style="{StaticResource MaterialDesignDatePicker}"
+                   IsTodayHighlighted="True"
+                   SelectedDate="{Binding Birthdate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     </DatePicker>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Foreground="White" Content="Password" Width="150" />
-                    <TextBox Width="400" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Foreground="White" Width="400" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">

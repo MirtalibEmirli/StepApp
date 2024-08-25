@@ -16,12 +16,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\calendaricon.png" />
     <None Remove="Images\exitt.png" />
     <None Remove="Images\marketicon.png" />
     <None Remove="Images\usericon.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Images\calendaricon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\exitt.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -37,6 +41,7 @@
 		<PackageReference Include="Font.Awesome" Version="5.15.4" />
 		<PackageReference Include="FontAwesome" Version="4.7.0" />
 		<PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+		<PackageReference Include="MaterialDesignColors" Version="3.1.0" />
 		<PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
 	</ItemGroup>
   <ItemGroup>

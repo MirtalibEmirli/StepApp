@@ -37,7 +37,8 @@ namespace AppLibrary.Data
 
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
-                .HasPrecision(18, 2);  
+                .HasPrecision(18, 2); 
+            
             modelBuilder.Entity<Admin>().HasData(
               new Admin
               {

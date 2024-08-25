@@ -61,7 +61,7 @@ namespace AppUserPanel.Viewmodels
         public SignupViewModel()
         {
             Random random = new Random();
-            msg = random.Next(200, 999);
+            msg = random.Next(1000, 9000);
             NewUser = new User();
             RegisterCommand = new RelayCommand(RegisterCommandExecute, IsRegisterCommand);
             GetCode = new RelayCommand(SendVerificationCode, IsGetCodeCommand);
@@ -75,34 +75,48 @@ namespace AppUserPanel.Viewmodels
         {
             return !string.IsNullOrEmpty(NewUser?.Email);
         }
-
         public bool IsRegisterCommand(object? obj)
         {
+             var userExists = Database.Users.Any(u => u.UserName == NewUser.UserName);
+
             return NewUser != null &&
                    !string.IsNullOrEmpty(NewUser.Firstname) &&
                    !string.IsNullOrEmpty(NewUser.LatsName) &&
                    !string.IsNullOrEmpty(NewUser.Email) &&
                    Codemail == msg &&
-                   !string.IsNullOrEmpty(Password);
+                   !string.IsNullOrEmpty(Password)&& !userExists; 
         }
 
         public void RegisterCommandExecute(object obj)
         {
             if (NewUser != null && Password != null)
             {
-                // Hash the password using the PasswordHasher class
+                var userExists = Database.Users.Any(u => u.UserName == NewUser.UserName);
+
+                if (userExists)
+                {
+                    MessageBox.Show("The username already exists. Please choose a different username.");
+                    return;
+                }
+
+                // Hashing
                 var hashedBytes = PasswordHasher.HashPassword(Password);
 
                 NewUser.DateofBirth = Birthdate;
                
                 NewUser.Password = hashedBytes;
 
-                // Save the new user to the database
+                // Save
                 Database.Users.Add(NewUser);
                 Database.SaveChanges();
                 MessageBox.Show("You are registered");
+             
+                // Clear data
                 NewUser = new User();
-
+                Codemail = null; // Clear Codemail
+                Password = string.Empty; // Clear Password
+                Random random = new Random();
+                msg = random.Next(1000, 9000);
             }
         }
 
@@ -129,6 +143,7 @@ namespace AppUserPanel.Viewmodels
                     mailMessage.Body = $"Your verification code is {msg}";
 
                     smtpClient.Send(mailMessage);
+                    
                 }
             }
         }
