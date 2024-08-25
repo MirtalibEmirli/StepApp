@@ -16,7 +16,7 @@
                 <GradientStop Color="LightSeaGreen" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <!-- Back Button -->
+        
         <Button HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
                 Margin="20,20,0,0"
@@ -26,32 +26,30 @@
             <materialDesign:PackIcon Kind="ArrowLeft" />
         </Button>
 
-        <!-- Sign-In Form Section -->
+  
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0" Width="350">
             <TextBlock Text="Sign In" FontSize="28" FontWeight="Bold" Margin="0,0,0,20" 
                        HorizontalAlignment="Center" 
                        Foreground="{DynamicResource PrimaryHueMidBrush}"/>
 
-            <!-- Username TextBox -->
             <TextBox x:Name="UsernameTextBox"
                      Width="300"
                      materialDesign:HintAssist.Hint="UserName"
-                    Text="{Binding TextName}"
+                    Text="{Binding TextName,UpdateSourceTrigger=PropertyChanged}"
                      Margin="0,10,0,0"
                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
                      HorizontalAlignment="Center" />
 
-            <!-- Password TextBox -->
             <TextBox x:Name="PasswordTextBox"
                      Width="300"
                      Margin="0,10,0,0"
+                       Text="{Binding Password,UpdateSourceTrigger=PropertyChanged}"
                      Foreground="Black"
                      materialDesign:HintAssist.Hint="Password"
                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
                      HorizontalAlignment="Center"
                      InputScope="Password" />
 
-            <!-- Sign In Button -->
             <Button Content="Sign In" 
                     Width="300" 
                     Height="40" 
@@ -59,7 +57,7 @@
                     Style="{StaticResource MaterialDesignFlatAccentBgButton}" 
                     Background="{DynamicResource PrimaryHueMidBrush}" 
                     Foreground="White"
-                    Command="{Binding SignInCommand}" CommandParameter="{Binding ElementName=Page}" />
+                    Command="{Binding SignInCommand}" CommandParameter="{Binding ElementName=page}" />
         </StackPanel>
     </Grid>
 </Page>

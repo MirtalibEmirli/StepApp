@@ -16,20 +16,36 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\airpods.jpg" />
     <None Remove="Images\calendaricon.png" />
     <None Remove="Images\exitt.png" />
+    <None Remove="Images\iphone13.jpeg" />
+    <None Remove="Images\mackbook.jpg" />
     <None Remove="Images\marketicon.png" />
+    <None Remove="Images\scooter.jpeg" />
     <None Remove="Images\usericon.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Images\airpods.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\calendaricon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\exitt.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\iphone13.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\mackbook.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\marketicon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\scooter.jpeg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\usericon.png">

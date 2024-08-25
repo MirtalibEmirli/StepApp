@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Windows.Input;
 using System.Windows;
-using AppUserPanel.Commands;
 using System.Windows.Controls;
+using System.Windows.Input;
+using AppUserPanel.Commands;
 using AppUserPanel.Pages;
 
 namespace AppUserPanel.ViewModels
@@ -33,20 +32,18 @@ namespace AppUserPanel.ViewModels
             }
         }
 
-        public ICommand SignInCommand { get; }
+        public ICommand SignInCommand { get; set; }
 
         public SignInViewModel()
         {
             SignInCommand = new RelayCommand(SignIn, CanSignIn);
-            BackCommand = new RelayCommand(BackCommandExecute);
         }
 
         private void SignIn(object? obj)
         {
-
             if (TextName == "user" && Password == "password" && obj is Page page)
             {
-                page.NavigationService.Navigate(App.Container.GetAllInstances<Dashboard>());
+                page.NavigationService.Navigate(App.Container.GetInstance<Dashboard>());
                 MessageBox.Show("Sign-In Successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
@@ -57,14 +54,7 @@ namespace AppUserPanel.ViewModels
 
         private bool CanSignIn(object? parameter)
         {
-
             return !string.IsNullOrWhiteSpace(TextName) && !string.IsNullOrWhiteSpace(Password);
         }
-
-
-
-
     }
-
-
 }

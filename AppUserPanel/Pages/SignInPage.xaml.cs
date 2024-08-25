@@ -1,4 +1,5 @@
 ﻿using AppUserPanel.Viewmodels;
+using AppUserPanel.ViewModels;
 using System.Windows.Controls;
  
 namespace AppUserPanel.Pages
@@ -9,7 +10,7 @@ namespace AppUserPanel.Pages
         public SignInPage()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<SignupViewModel>();
+            DataContext = App.Container.GetInstance<SignInViewModel>();
         }
     }
 }
