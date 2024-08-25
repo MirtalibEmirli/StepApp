@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using AppLibrary.Data;
+using AppLibrary.Models;
 using AppUserPanel.Commands;
 using AppUserPanel.Pages;
 
@@ -11,7 +13,7 @@ namespace AppUserPanel.ViewModels
     {
         private string _textName;
         private string _password;
-
+        MirtalibDbContext dbContext;
         public string TextName
         {
             get => _textName;
@@ -36,16 +38,22 @@ namespace AppUserPanel.ViewModels
 
         public SignInViewModel()
         {
+            dbContext = new();
             SignInCommand = new RelayCommand(SignIn, CanSignIn);
+            BackCommand = new RelayCommand(BackCommandExecute);
         }
 
         private void SignIn(object? obj)
         {
-            if (TextName == "user" && Password == "password" && obj is Page page)
+
+            var user = dbContext.Users.FirstOrDefault(x => x.UserName == TextName && x.Password ==PasswordHasher.HashPassword(Password));
+            if(user != null&&obj is Page page)
             {
+                PasswordHasher.UserId = user.Id;
                 page.NavigationService.Navigate(App.Container.GetInstance<Dashboard>());
                 MessageBox.Show("Sign-In Successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            
             else
             {
                 MessageBox.Show("Invalid credentials.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

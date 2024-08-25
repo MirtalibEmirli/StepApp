@@ -9,6 +9,7 @@ namespace AppLibrary.Models
 {
     public static class PasswordHasher
     {
+        public static int UserId { get; set; }
         public static byte[] HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())

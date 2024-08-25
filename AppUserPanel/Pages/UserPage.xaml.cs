@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppUserPanel.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace AppUserPanel.Pages
     /// </summary>
     public partial class UserPage : Page
     {
+        public int id;
         public UserPage()
         {
             InitializeComponent();
+            DataContext = App.Container.GetInstance<UserViewModel>();
+
         }
+       
     }
 }

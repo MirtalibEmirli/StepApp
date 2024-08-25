@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using AppAdminPanel.Commands;
 using AppAdminPanel.ViewModel;
 using AppLibrary.Data;
 using AppLibrary.Models;
@@ -23,6 +24,7 @@ namespace AdmnPanel.ViewModel
         public UserViewModel()
         {
             LoadUsers();
+            BackCommand = new RelayCommand(BackCommandExecute);
         }
 
         private void LoadUsers()

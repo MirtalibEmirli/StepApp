@@ -45,17 +45,17 @@
 
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Product Name" FontSize="14" FontWeight="SemiBold"   Margin="0,0,0,5"/>
-                        <TextBox Text="{Binding ProductName}" Height="35" FontSize="14" Padding="5" BorderBrush="#E0E0E0" BorderThickness="1" Background="#F0F0F0"/>
+                        <TextBox Text="{Binding ProductName,UpdateSourceTrigger=PropertyChanged}" Height="35" FontSize="14" Padding="5" BorderBrush="#E0E0E0" BorderThickness="1" Background="#F0F0F0"/>
                     </StackPanel>
 
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Product Price" FontSize="14" FontWeight="SemiBold"  Foreground="White" Margin="0,0,0,5"/>
-                        <TextBox Text="{Binding ProductPrice}" Height="35" FontSize="14" Padding="5" BorderBrush="#E0E0E0" BorderThickness="1" Background="#F0F0F0"/>
+                        <TextBox Text="{Binding ProductPrice,UpdateSourceTrigger=PropertyChanged}" Height="35" FontSize="14" Padding="5" BorderBrush="#E0E0E0" BorderThickness="1" Background="#F0F0F0"/>
                     </StackPanel>
 
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Product Quantity" FontSize="14" FontWeight="SemiBold"  Foreground="White" Margin="0,0,0,5"/>
-                        <TextBox Text="{Binding ProductQuantity}" Height="35" FontSize="14" Padding="5" BorderBrush="#E0E0E0" BorderThickness="1" Background="#F0F0F0"/>
+                        <TextBox Text="{Binding ProductQuantity,UpdateSourceTrigger=PropertyChanged}" Height="35" FontSize="14" Padding="5" BorderBrush="#E0E0E0" BorderThickness="1" Background="#F0F0F0"/>
                     </StackPanel>
 
                     <!-- ComboBox for Categories -->
