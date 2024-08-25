@@ -1,0 +1,103 @@
+﻿<Page x:Class="AppUserPanel.Pages.Dashboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppUserPanel.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Name="db"
+      mc:Ignorable="d" 
+      
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Dashboard">
+    <!--Resorces-->
+    <Page.Resources>
+        <local:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <!--#region GridBackcolor-->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Color="#27396b" Offset="0"/>
+                <GradientStop Color="DarkGray" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <!--#endregion-->
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="MR Shop" FontSize="24" FontWeight="UltraLight" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="AliceBlue"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button CommandParameter="{Binding ElementName=db}" Command="{Binding UserCommand}" Style="{StaticResource menubutton}">
+                    <Image Source="/Images/usericon.png" Width="20" Height="20" />
+                </Button>
+
+                <!--Burda slected item i cart a elave edmek lazim-->
+                <Button  CommandParameter="{Binding ElementName=db}" Command="{Binding LikeCommand}" Style="{StaticResource menubutton}">
+                    <materialDesign:PackIcon Kind="CardsHeartOutline" Width="40" Height="30" Foreground="White" />
+                </Button>
+
+                <Button  CommandParameter="{Binding ElementName=db}" Command="{Binding CartCommand}" Style="{StaticResource menubutton}">
+                    <materialDesign:PackIcon Kind="CartAdd" Width="40" Height="30" />
+                </Button>
+
+                <Button  CommandParameter="{Binding ElementName=db}" Command="{Binding OutCommand}" Style="{StaticResource menubutton}">
+                    <materialDesign:PackIcon Kind="Logout" Width="40" Height="30"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        
+        <Grid Grid.Row="1" Margin="10">
+            <ListView ItemsSource="{Binding Products}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#D3D3D3" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                               
+                                <Image Width="80" Height="80" Margin="5" Grid.RowSpan="6">
+                                    <Image.Source>
+                                        <Binding Path="Photo.Bytes" Converter="{StaticResource ByteArrayToImageConverter}"/>
+                                    </Image.Source>
+                                </Image>
+
+                                <!-- Product   -->
+                                <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="#FFFFFF" Grid.Column="1" Grid.Row="0"/>
+                                <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="14" Foreground="#CCCCCC" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Text="{Binding Quantity, StringFormat='Quantity: {0}'}" FontSize="14" Foreground="#CCCCCC" Grid.Column="1" Grid.Row="2"/>
+                                <TextBlock Text="{Binding Category.Name}" FontSize="14" Foreground="#CCCCCC" Grid.Column="1" Grid.Row="3"/>
+                                <TextBlock Text="{Binding Photo.Description}" FontSize="14" Foreground="#CCCCCC" Grid.Column="1" Grid.Row="4"/>
+                                <TextBlock Text="{Binding Photo.FileExtension}" FontSize="12" Foreground="#AAAAAA" Grid.Column="1" Grid.Row="5"/>
+                                <TextBlock Text="{Binding Photo.Size, StringFormat='Size: {0:N2} MB'}" FontSize="12" Foreground="#AAAAAA" Grid.Column="1" Grid.Row="6"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

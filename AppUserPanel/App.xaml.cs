@@ -24,6 +24,7 @@ namespace AppUserPanel
             Container.RegisterSingleton<MainPage>();
             Container.RegisterSingleton<SignInPage>();
             Container.RegisterSingleton<SignUpPage>();
+            Container.RegisterSingleton<Dashboard>();
            
         }
 
@@ -32,6 +33,7 @@ namespace AppUserPanel
             Container.RegisterSingleton<MainViewModel>();
             Container.RegisterSingleton<SignInViewModel>();
             Container.RegisterSingleton<SignupViewModel>();
+            Container.RegisterSingleton<DashboardViewModel>();
  
         }
     }

@@ -9,7 +9,7 @@ Name="p"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SignUpPage">
 
-    <Grid Background="AliceBlue">
+    <Grid >
         <Border BorderThickness="2" Opacity="0.95" Margin="20">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -20,8 +20,8 @@ Name="p"
             </Border.BorderBrush>
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="Azure" Offset="1"/>
+                    <GradientStop Color="DarkBlue" Offset="0"/>
+                    <GradientStop Color="DarkRed" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
             <StackPanel Height="430" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -52,7 +52,7 @@ Name="p"
                     <DatePicker SelectedDate="{Binding Birthdate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                     </DatePicker>
                 </StackPanel>
-                
+
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Foreground="White" Content="Password" Width="150" />
                     <TextBox Width="400" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
