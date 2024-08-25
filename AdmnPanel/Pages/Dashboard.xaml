@@ -47,13 +47,13 @@
                 <Separator Height="0.8" Margin="20 30" Background="#46558a"/>
 
                 <!-- Menu buttons -->
-                <Button Command="{Binding DashboardCommand}" Style="{StaticResource menubutton}">
+                <Button Command="{Binding DashboardCommand}" CommandParameter="{Binding ElementName=dshb}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="Home" Margin="5"/>
                         <TextBlock Text="Dashboard"/>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding UsersCommand}" Style="{StaticResource menubutton}">
+                <Button CommandParameter="{Binding ElementName=dshb}"  Command="{Binding UsersCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="Users" Margin="5"/>
                         <TextBlock Text="Users"/>
@@ -75,6 +75,12 @@
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="Barcode" Margin="5"/>
                         <TextBlock Text="Category"/>
+                    </StackPanel>
+                </Button>
+                <Button CommandParameter="{Binding ElementName=dshb}" Command="{Binding BackCommand}" Style="{StaticResource menubutton}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:FontAwesome Icon="Backward" Margin="5"/>
+                        <TextBlock Text="Back"/>
                     </StackPanel>
                 </Button>
             </StackPanel>

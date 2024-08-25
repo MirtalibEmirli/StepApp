@@ -18,20 +18,14 @@ using System.Windows.Shapes;
 namespace AdmnPanel.Pages
 {
     /// <summary>
-    /// Interaction logic for Dashboard.xaml
+    /// Interaction logic for UserPage.xaml
     /// </summary>
-    public partial class Dashboard : Page
+    public partial class UserPage : Page
     {
-        public Dashboard()
+        public UserPage()
         {
             InitializeComponent();
-            DataContext = new DashboardViewModel();
+            DataContext = App.Container.GetInstance<UserViewModel>();
         }
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this)?.Close();
-        }
-
     }
-
 }

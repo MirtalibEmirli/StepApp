@@ -81,7 +81,7 @@ namespace AdmnPanel.ViewModel
         }
 
         public ICommand AddCommand { get; }
-        public ICommand BackCommand { get; }
+       
         public ICommand AddPhotoCommand { get; }
 
         public AddProductViewModel()
@@ -126,18 +126,25 @@ namespace AdmnPanel.ViewModel
 
                         dbContext.SaveChanges();
 
-                        System.Windows.MessageBox.Show("Product added successfully!");
+                        //cleaning
                         product = new Product();
+                        _productName = string.Empty;
+                        _productPrice = 0;
+                        _productQuantity = 0;
+                        Photos = new ObservableCollection<PhotoProduct>();
+                        System.Windows.MessageBox.Show("Product added successfully!");
+                        //burda problem var add edirem amma ondan sora propertyler bosalmr
                     }
                     else
                     {
-                        System.Windows.MessageBox.Show("A product with the same name already exists!");
+                        System.Windows.MessageBox.Show("Please select a category and fill in all required fields!");
                     }
                 }
             }
             else
             {
-                System.Windows.MessageBox.Show("Please select a category and fill in all required fields!");
+                System.Windows.MessageBox.Show("A product with the same name already exists!");
+
             }
         }
 

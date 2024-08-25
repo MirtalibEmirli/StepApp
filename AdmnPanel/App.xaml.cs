@@ -25,6 +25,8 @@ namespace AppAdminPanel
             Container.RegisterSingleton<AddCategoryPage>();
             Container.RegisterSingleton<CategoryPage>();
             Container.Register<AddProductPage>();
+            Container.Register<UserPage>();
+
         }
 
         public void RegisterViewModels()
@@ -35,6 +37,7 @@ namespace AppAdminPanel
             Container.RegisterSingleton<AddCategoryPageViewModel>();
             Container.RegisterSingleton<CategoryViewModel>();
             Container.RegisterSingleton<AddProductViewModel>();
+            Container.RegisterSingleton<UserViewModel>();
         }
     }
 }

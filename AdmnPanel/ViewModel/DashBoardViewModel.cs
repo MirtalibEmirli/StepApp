@@ -4,6 +4,7 @@ using AppAdminPanel.Commands;
 using AppAdminPanel.Services;
 using AppLibrary.Data;
 using AppLibrary.Models;
+using AppAdminPanel.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,17 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using AppAdminPanel.ViewModel;
 
 namespace AdmnPanel.ViewModel
 {
-    public class DashboardViewModel : InotifyService
+    public class DashboardViewModel : BaseViewModel
     {
         public ICommand CategoryCommand { get; set; }
         public ICommand AddProductCommand { get; set; }
+        public ICommand DashboardCommand { get; set; }
+        public ICommand UsersCommand { get; set; }
+
         MirtalibDbContext dbContext;
         private ObservableCollection<Product> _products;
         public ObservableCollection<Product> Products
@@ -38,14 +43,31 @@ namespace AdmnPanel.ViewModel
             CategoryCommand = new RelayCommand(CategoryCommandExecute);
             AddProductCommand = new RelayCommand(AddProductExecute);
             dbContext = new MirtalibDbContext();
+            UsersCommand = new RelayCommand(UsersExecute);
+            BackCommand = new RelayCommand(BackCommandExecute);
+            DashboardCommand = new RelayCommand(RefreshDashboard);
             LoadProducts();
         }
 
+        private void RefreshDashboard(object? obj)
+        {
+            LoadProducts();
+
+        }
+
+        private void UsersExecute(object? obj)
+        {
+            if (obj is Page page)
+            {
+                page.NavigationService.Navigate(App.Container.GetInstance<UserPage>());
+            }
+        }
+
+        //burda dashboarda back edirem yuklenmir ancaq login olanda elave olunan product gelir
         private void LoadProducts()
         {
 
-            //Products = new ObservableCollection<Product>(dbContext.Products.ToList());
-            var datass = dbContext.Products.Include(x=>x.Photo).ToList();
+            var datass = dbContext.Products.Include(x => x.Photo).ToList();
             Products = new ObservableCollection<Product>(datass);
         }
 
@@ -64,6 +86,7 @@ namespace AdmnPanel.ViewModel
                 if (obj is Page page && page.NavigationService != null)
                 {
                     page.NavigationService.Navigate(App.Container.GetInstance<CategoryPage>());
+
                 }
                 else
                 {

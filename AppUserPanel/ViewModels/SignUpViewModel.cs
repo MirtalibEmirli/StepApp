@@ -20,13 +20,15 @@ namespace AppUserPanel.Viewmodels
         public string? ErrorMassage { get => errorMassage; set { errorMassage = value; OnPropertyChanged(); } }
         private string? password;
         public string? Password { get => password; set { password = value; OnPropertyChanged(); } }
-
-        private DateTime? _birthdate;
-        public DateOnly Birthdate
+        //burda nese temavar
+        private DateTime _birthdate;
+        public DateTime Birthdate
         {
-            get => DateOnly.FromDateTime(_birthdate ?? DateTime.Now); 
-            set => _birthdate = value.ToDateTime(TimeOnly.MinValue);  
+            get => _birthdate;
+            set {_birthdate = value;OnPropertyChanged();
         }
+        }
+
 
 
         private MirtalibDbContext Database;
@@ -53,7 +55,6 @@ namespace AppUserPanel.Viewmodels
         #region Commands
         public ICommand RegisterCommand { get; set; }
         public ICommand GetCode { get; set; }
-        public ICommand BackCommand { get; set; }
 
         #endregion
 
@@ -67,6 +68,7 @@ namespace AppUserPanel.Viewmodels
             GetCode = new RelayCommand(SendVerificationCode, IsGetCodeCommand);
             BackCommand = new RelayCommand(BackCommandExecute);
             Database = new MirtalibDbContext();
+            Birthdate = DateTime.Now;
         }
         #endregion
 

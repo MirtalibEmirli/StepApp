@@ -11,7 +11,7 @@ namespace AppLibrary.Models
         public string Firstname { get; set; } = null!;
         public string LatsName { get; set; } = null!;
         public string UserName { get; set; } = null!;
-        public DateOnly DateofBirth { get; set; }
+        public DateTime DateofBirth { get; set; }
         public string Email { get; set; } = null!;
         
         public IEnumerable<Order> History { get; } = [];

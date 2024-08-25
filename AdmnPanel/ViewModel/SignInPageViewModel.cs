@@ -70,6 +70,8 @@ public class SignInPageViewModel : BaseViewModel
         {
 
             page.NavigationService.Navigate(App.Container.GetInstance<Dashboard>());
+            FirstName = string.Empty;
+            Password = string.Empty;
         }
     }
 
