@@ -22,7 +22,7 @@ namespace AppUserPanel.Pages
         public SignUpPage()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<SignupViewModel>();
+            DataContext = new SignupViewModel();
         }
     }
 }

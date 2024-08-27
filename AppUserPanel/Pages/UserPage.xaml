@@ -39,8 +39,13 @@
                 
 
                 <!-- "Buy" Button -->
+                
                 <Button CommandParameter="{Binding ElementName=lw.SelectedItem}" Command="{Binding BuyCommand}" Style="{StaticResource menubutton}">
                     <materialDesign:PackIcon Kind="CurrencyUsd" Width="40" Height="30" />
+                </Button>
+
+                <Button CommandParameter="{Binding ElementName=lw.SelectedItem}" Command="{Binding CancelCommand}" Style="{StaticResource menubutton}">
+                    <materialDesign:PackIcon Kind="CancelBold" Width="40" Height="30" />
                 </Button>
 
                 <Button CommandParameter="{Binding ElementName=db}" Command="{Binding BackCommand}" Style="{StaticResource menubutton}">

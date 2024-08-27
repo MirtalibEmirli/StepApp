@@ -42,7 +42,7 @@ namespace AppUserPanel.ViewModels
         {
             if (obj is Page page)
             { 
-                page.NavigationService?.Navigate(App.Container.GetInstance<SignInPage>());
+                page.NavigationService?.Navigate(new SignInPage());
             }
         }
 
@@ -50,7 +50,7 @@ namespace AppUserPanel.ViewModels
         {
             if (obj is Page page)
             {
-                page.NavigationService?.Navigate(App.Container.GetInstance<SignUpPage>());
+                page.NavigationService?.Navigate(new SignUpPage());
             }
         }
 

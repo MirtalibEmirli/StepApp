@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:AdmnPanel.Pages"
       xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d"  Name="dshb"
@@ -60,12 +61,7 @@
                         <TextBlock Text="Users"/>
                     </StackPanel>
                 </Button>
-                <!--<Button   Style="{StaticResource menubutton}">
-    <StackPanel Orientation="Horizontal">
-        <fa:FontAwesome Icon="Photo" Margin="5"/>
-        <TextBlock Text="ProductPhoto"/>
-    </StackPanel>
-</Button>-->
+              
                 <Button CommandParameter="{Binding ElementName=dshb}" Command="{Binding AddProductCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
                         <fa:FontAwesome Icon="ProductHunt" Margin="5"/>
@@ -88,10 +84,10 @@
         </Border>
 
         <!-- Main Section -->
-        <Grid Grid.Column="1">
+        <Grid Grid.ColumnSpan="2" Margin="203,0,7,0">
             <Grid.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
-                    <GradientStop Color="#223266" Offset="0"/>
+                    <GradientStop Color="AliceBlue" Offset="0"/>
                     <GradientStop Color="#2c386c" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
@@ -102,18 +98,19 @@
             </Grid.RowDefinitions>
 
             <!-- Close Button   -->
-            <Button Grid.Row="0" Grid.Column="1" 
+            <Button Grid.Row="0" Grid.Column="1"  
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Top" 
                     Width="30" 
                     Height="30" 
-                    Content="X"
-                    Background="Red" 
                    
-                    FontSize="16"
+                    Background="Red"  
+                   
+                    FontSize="16" 
                     Click="CloseButton_Click"
                     BorderThickness="0"
                     Margin="0 10 10 0">
+                <materialDesign:PackIcon Kind="Close"  Foreground="Black"/>
 
             </Button>
 

@@ -9,6 +9,10 @@ using System.Security.Cryptography;
 using System.Text;
 using AppLibrary.Data;
 using System.Windows;
+using AppUserPanel.Pages;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Globalization;
+using System.Windows.Media.Imaging;
 
 namespace AppUserPanel.Viewmodels
 {
@@ -20,13 +24,15 @@ namespace AppUserPanel.Viewmodels
         public string? ErrorMassage { get => errorMassage; set { errorMassage = value; OnPropertyChanged(); } }
         private string? password;
         public string? Password { get => password; set { password = value; OnPropertyChanged(); } }
-        //burda nese temavar
+       
         private DateTime _birthdate;
         public DateTime Birthdate
         {
             get => _birthdate;
-            set {_birthdate = value;OnPropertyChanged();
-        }
+            set
+            {
+                _birthdate = value; OnPropertyChanged();
+            }
         }
 
 
@@ -39,8 +45,8 @@ namespace AppUserPanel.Viewmodels
             set { codemail = value; OnPropertyChanged(); }
         }
 
-        private User? user;
-        public User? NewUser
+        private AppLibrary.Models.User? user;
+        public AppLibrary.Models.User? NewUser
         {
             get { return user; }
             set { user = value; OnPropertyChanged(); }
@@ -63,7 +69,7 @@ namespace AppUserPanel.Viewmodels
         {
             Random random = new Random();
             msg = random.Next(1000, 9000);
-            NewUser = new User();
+            NewUser = new AppLibrary.Models.User();
             RegisterCommand = new RelayCommand(RegisterCommandExecute, IsRegisterCommand);
             GetCode = new RelayCommand(SendVerificationCode, IsGetCodeCommand);
             BackCommand = new RelayCommand(BackCommandExecute);
@@ -79,14 +85,14 @@ namespace AppUserPanel.Viewmodels
         }
         public bool IsRegisterCommand(object? obj)
         {
-             var userExists = Database.Users.Any(u => u.UserName == NewUser.UserName);
+            var userExists = Database.Users.Any(u => u.UserName == NewUser.UserName);
 
             return NewUser != null &&
                    !string.IsNullOrEmpty(NewUser.Firstname) &&
                    !string.IsNullOrEmpty(NewUser.LatsName) &&
                    !string.IsNullOrEmpty(NewUser.Email) &&
                    Codemail == msg &&
-                   !string.IsNullOrEmpty(Password)&& !userExists; 
+                   !string.IsNullOrEmpty(Password) && !userExists;
         }
 
         public void RegisterCommandExecute(object obj)
@@ -103,18 +109,30 @@ namespace AppUserPanel.Viewmodels
 
                 // Hashing
                 var hashedBytes = PasswordHasher.HashPassword(Password);
-
                 NewUser.DateofBirth = Birthdate;
-               
+
                 NewUser.Password = hashedBytes;
 
+
+
+                //  converting the default user icon
+                var defaultIconUri = new Uri("pack://application:,,,/Images/usericon.png");
+                var defaultIcon = new BitmapImage(defaultIconUri);
+                var byteArrayToImageConverter = new ByteArrayToImageConverter();
+                var image  = (byte[])byteArrayToImageConverter.ConvertBack(defaultIcon, typeof(byte[]), null, CultureInfo.InvariantCulture);
+                NewUser.Photo = image;
+
+                
+                //Database.PhotoUsers.Add(image);
+
                 // Save
+
                 Database.Users.Add(NewUser);
                 Database.SaveChanges();
                 MessageBox.Show("You are registered");
-             
+
                 // Clear data
-                NewUser = new User();
+                NewUser = new AppLibrary.Models.User();
                 Codemail = null; // Clear Codemail
                 Password = string.Empty; // Clear Password
                 Random random = new Random();
@@ -145,7 +163,7 @@ namespace AppUserPanel.Viewmodels
                     mailMessage.Body = $"Your verification code is {msg}";
 
                     smtpClient.Send(mailMessage);
-                    
+
                 }
             }
         }

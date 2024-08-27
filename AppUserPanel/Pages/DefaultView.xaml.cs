@@ -1,5 +1,4 @@
-﻿using AppUserPanel.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,17 +16,13 @@ using System.Windows.Shapes;
 namespace AppUserPanel.Pages
 {
     /// <summary>
-    /// Interaction logic for UserPage.xaml
+    /// Interaction logic for DefaultView.xaml
     /// </summary>
-    public partial class UserPage : Page
+    public partial class DefaultView : Page
     {
-         
-        public UserPage()
+        public DefaultView()
         {
             InitializeComponent();
-            DataContext =new UserViewModel(); 
-
         }
-       
     }
 }

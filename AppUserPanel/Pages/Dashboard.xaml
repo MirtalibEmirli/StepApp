@@ -44,8 +44,8 @@
                 </Button>
 
 
-                <Button  CommandParameter="{Binding ElementName=db}" Command="{Binding LikeCommand}" Style="{StaticResource menubutton}">
-                    <materialDesign:PackIcon Kind="CardsHeartOutline" Width="40" Height="30" Foreground="White" />
+                <Button  CommandParameter="{Binding ElementName=db}" Command="{Binding ProfilCommand}" Style="{StaticResource menubutton}">
+                    <materialDesign:PackIcon Kind="Account" Width="40" Height="30" Foreground="White" />
                 </Button>
 
                 <!--Burda slected item i cart a elave edmek lazim-->

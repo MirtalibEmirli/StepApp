@@ -15,7 +15,8 @@ namespace AppLibrary.Models
         public Category Category { get; set; } = null!;
         public PhotoProduct? Photo { get; set; }
         public IEnumerable<Order> Orders { get; set; } = [];
-        public List<Cart> Carts { get; set; } = [];
+        //public List<Cart> Carts { get; set; } = [];
+        public List<CartProduct> CartItems { get; set; } = [];
 
     }
 }

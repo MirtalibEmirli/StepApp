@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 
 namespace AppUserPanel.Pages
 {
-    /// <summary>
-    /// Interaction logic for UserPage.xaml
-    /// </summary>
-    public partial class UserPage : Page
+  
+    public partial class ProfilPage : Page
     {
-         
-        public UserPage()
+        public ProfilPage()
         {
             InitializeComponent();
-            DataContext =new UserViewModel(); 
-
+            DataContext = new ProfilViewModel();
         }
-       
     }
 }

@@ -20,15 +20,28 @@ namespace AppUserPanel.ViewModels
                 OnPropertyChanged(nameof(SelectedProduct));
             }
         }
+        private ObservableCollection<Product> products;
+        public ObservableCollection<Product> Products
+        {
+            get { return products; }
 
-        public ObservableCollection<Product> Products { get; set; }
+            set { products = value;OnPropertyChanged(); }
+        }
         public ICommand BuyCommand { get; }
-        public ICommand BackCommand { get; }
+
 
         public UserViewModel()
         {
             dbContext = new();
-            Products = new ObservableCollection<Product>(/* Load your products here */);
+            Products = new ObservableCollection<Product>
+            {
+                new Product
+                {
+                    Id = 1,
+                    Name = "Salam",
+                    Price = 12
+                }
+            };
             BuyCommand = new RelayCommand(BuyProduct, CanExecuteBuyCommand);
             BackCommand = new RelayCommand(BackCommandExecute);
             LoadProducts();
@@ -48,18 +61,28 @@ namespace AppUserPanel.ViewModels
         {
             var cart = dbContext.Carts
                                 .Include(x => x.Items)
+                                .ThenInclude(x => x.Product)
                                 .ThenInclude(x => x.Photo)
                                 .FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
 
             if (cart != null && cart.Items != null)
             {
-                Products = new ObservableCollection<Product>(cart.Items);
+                Products.Clear(); 
+                foreach (var item in cart.Items)
+                {
+                    var product = dbContext.Products
+                                           .Include(p => p.Photo)
+                                           .FirstOrDefault(x => x.Id == item.ProductId);
+                    product.Quantity = item.Quantity;
+                    if (product != null)
+                    {
+                        Products.Add(product);
+                    }
+                }
             }
-            else
-            {
-                Products = new ObservableCollection<Product>();
-            }
+            
         }
+
 
     }
 }

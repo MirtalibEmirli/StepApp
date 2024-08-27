@@ -21,22 +21,25 @@ namespace AppUserPanel
 
         public void RegisterViews()
         {
-            Container.RegisterSingleton<MainPage>();
+           /* Container.RegisterSingleton<MainPage>();
             Container.RegisterSingleton<SignInPage>();
             Container.RegisterSingleton<SignUpPage>();
             Container.RegisterSingleton<Dashboard>();
             Container.RegisterSingleton<UserPage>();
+            Container.RegisterSingleton<ProfilPage>();
+            Container.RegisterSingleton<DefaultView>();*/
            
         }
 
         public void RegisterViewModels()
         {
-            Container.RegisterSingleton<MainViewModel>();
+           /* Container.RegisterSingleton<MainViewModel>();
             Container.RegisterSingleton<SignInViewModel>();
             Container.RegisterSingleton<SignupViewModel>();
             Container.RegisterSingleton<DashboardViewModel>();
-            Container.RegisterSingleton<UserViewModel>();
- 
+          // Container.RegisterSingleton<UserViewModel>();
+            Container.RegisterSingleton<ProfilViewModel>();
+ */
         }
     }
 

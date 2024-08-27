@@ -86,7 +86,7 @@ namespace AdmnPanel.ViewModel
 
         public AddProductViewModel()
         {
-            LoadCategories(); // Kategorileri yüklüyoruz.
+            LoadCategories();  
             AddCommand = new RelayCommand(AddProduct);
             BackCommand = new RelayCommand(BackCommandExecute);
             AddPhotoCommand = new RelayCommand(AddPhoto);

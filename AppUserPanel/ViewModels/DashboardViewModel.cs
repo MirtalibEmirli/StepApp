@@ -21,7 +21,7 @@ namespace AppUserPanel.ViewModels
         private ObservableCollection<Product> _products;
         public ObservableCollection<Product> Products { get { return _products; } set { _products = value; OnPropertyChanged(); } }
 
-        public ICommand LikeCommand { get; }
+        public ICommand ProfilCommand { get; }
         public ICommand UserCommand { get; }
         public ICommand CartCommand { get; }
 
@@ -36,7 +36,7 @@ namespace AppUserPanel.ViewModels
 
 
             dbContext = new();
-            LikeCommand = new RelayCommand(ExecuteLikeCommand);
+            ProfilCommand = new RelayCommand(ExecuteProfilCommand);
             UserCommand = new RelayCommand(ExecuteUserCommand);
             CartCommand = new RelayCommand(ExecuteCartCommand);
             BackCommand = new RelayCommand(BackCommandExecute);
@@ -47,32 +47,63 @@ namespace AppUserPanel.ViewModels
 
         private void ExecuteCartCommand(object? obj)
         {
-            var cart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
-            if(cart == null)
+            try
             {
-                Cart newCart = new Cart
+                var cart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+                if (cart == null)
                 {
-                    UserId = PasswordHasher.UserId
-                };
-                dbContext.Carts.Add(newCart);
+                    Cart newCart = new Cart
+                    {
+                        UserId = PasswordHasher.UserId
+                    };
+                    dbContext.Carts.Add(newCart);
+                    dbContext.SaveChanges();
+                    cart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+                }
+                var product = SelectedProduct;
+                var cartProduct = dbContext.CartProducts.FirstOrDefault(x => x.ProductId == product.Id && x.CartId == cart.Id);
+                if(cartProduct is null)
+                {
+                    cartProduct = new CartProduct
+                    {
+                        CartId = cart.Id,
+                        ProductId = product.Id,
+                        Quantity = 1
+                    };
+                    dbContext.CartProducts.Add(cartProduct);
+                }
+                else
+                {
+                    cartProduct.Quantity++;
+                }
                 dbContext.SaveChanges();
-                cart = newCart;
+                MessageBox.Show($"{SelectedProduct.Name} added your cart successfully!");
             }
-            List<Product> cartItems = new();
-            if(cart.Items != null)
-            cartItems.AddRange(cart.Items);
-            cartItems.Add(SelectedProduct);
-            cart.Items = cartItems;
-            //SelectedProduct.Carts.ToList().Add(cart);
-            dbContext.SaveChanges();
-                MessageBox.Show(SelectedProduct.Name);
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+          
 
              
 
         }
 
-        private void ExecuteLikeCommand(object? obj)
+        private void ExecuteProfilCommand(object? obj)
         {
+            try
+            {
+                if (obj is Page page)
+                {
+                    page.NavigationService.Navigate(new ProfilPage());
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
 
         }
 
@@ -89,7 +120,7 @@ namespace AppUserPanel.ViewModels
         {
             if (obj is Page page)
             {
-                page.NavigationService.Navigate(App.Container.GetInstance<UserPage>());
+                page.NavigationService.Navigate(new UserPage());
             }
         }
 

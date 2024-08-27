@@ -50,7 +50,7 @@ namespace AppUserPanel.ViewModels
             if(user != null&&obj is Page page)
             {
                 PasswordHasher.UserId = user.Id;
-                page.NavigationService.Navigate(App.Container.GetInstance<Dashboard>());
+                page.NavigationService.Navigate(new Dashboard());
                 MessageBox.Show("Sign-In Successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 TextName = string.Empty;
                 Password = string.Empty;

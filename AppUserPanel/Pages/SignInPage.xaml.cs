@@ -10,7 +10,7 @@ namespace AppUserPanel.Pages
         public SignInPage()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<SignInViewModel>();
+            DataContext = new SignInViewModel();
         }
     }
 }

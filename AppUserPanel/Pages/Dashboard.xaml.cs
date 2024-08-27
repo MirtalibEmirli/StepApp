@@ -25,7 +25,7 @@ namespace AppUserPanel.Pages
         public Dashboard()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<DashboardViewModel>();
+            DataContext = new DashboardViewModel();
         }
        
     }

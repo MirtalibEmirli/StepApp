@@ -24,6 +24,7 @@ namespace AppLibrary.Data
         public DbSet<PhotoProduct> PhotoProducts { get; set; }
         public DbSet<PhotoUser> PhotoUsers { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<CartProduct> CartProducts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
              
@@ -49,6 +50,15 @@ namespace AppLibrary.Data
                   Password = PasswordHasher.HashPassword("admin12")  
               }
             );
+
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.CartItems)
+                .WithOne(cp => cp.Product);
+
+            modelBuilder.Entity<Cart>()
+                .HasMany(p => p.Items)
+                .WithOne(cp => cp.Cart);
+
             modelBuilder.Entity<Product>()
            .HasOne(p => p.Category)
            .WithMany(c => c.Products)
