@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppUserPanel.Windows"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
+     
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Title="StepApp" AllowsTransparency="True" Background="Transparent"
         ShowsNavigationUI="False" Icon="../Images/marketicon.png"
-       Height="450" Width="800">
+       Height="550" Width="1000">
 
     <NavigationWindow.Content>
         <Frame Source="../Pages/MainPage.xaml" />

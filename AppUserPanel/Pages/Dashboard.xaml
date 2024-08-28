@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Name="db"
       mc:Ignorable="d" 
       
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="1000"
       Title="Dashboard">
     <!--Resorces-->
     <Page.Resources>
@@ -40,12 +40,12 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <Button CommandParameter="{Binding ElementName=db}" Command="{Binding UserCommand}" Style="{StaticResource menubutton}">
-                    <Image Source="/Images/usericon.png" Width="20" Height="20" />
+                    <materialDesign:PackIcon Kind="Basket" Width="40" Height="30" Foreground="White" />
                 </Button>
 
 
                 <Button  CommandParameter="{Binding ElementName=db}" Command="{Binding ProfilCommand}" Style="{StaticResource menubutton}">
-                    <materialDesign:PackIcon Kind="Account" Width="40" Height="30" Foreground="White" />
+                    <Image Source="/Images/usericon.png" Width="30" Height="35" />
                 </Button>
 
                 <!--Burda slected item i cart a elave edmek lazim-->

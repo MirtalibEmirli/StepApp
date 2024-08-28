@@ -13,6 +13,7 @@ using AppUserPanel.Pages;
 using Microsoft.VisualBasic.ApplicationServices;
 using System.Globalization;
 using System.Windows.Media.Imaging;
+using System.Windows.Forms.VisualStyles;
 
 namespace AppUserPanel.Viewmodels
 {
@@ -145,27 +146,34 @@ namespace AppUserPanel.Viewmodels
 
         private void SendVerificationCode(object? obj)
         {
-            string senderEmail = "mirtalibemirli498@gmail.com";
-            string senderPassword = "eiwk gysv kmwd tttx";
-            string recipientEmail = NewUser?.Email;
 
-            string smtpServer = "smtp.gmail.com";
-            int smtpPort = 587;
-
-            using (SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort))
+            Thread thread = new Thread(() =>
             {
-                smtpClient.EnableSsl = true;
-                smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
+                string senderEmail = "mirtalibemirli498@gmail.com";
+                string senderPassword = "eiwk gysv kmwd tttx";
+                string recipientEmail = NewUser?.Email;
 
-                using (MailMessage mailMessage = new MailMessage(senderEmail, recipientEmail))
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587;
+
+                using (SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort))
                 {
-                    mailMessage.Subject = "Verification Code";
-                    mailMessage.Body = $"Your verification code is {msg}";
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
 
-                    smtpClient.Send(mailMessage);
+                    using (MailMessage mailMessage = new MailMessage(senderEmail, recipientEmail))
+                    {
+                        mailMessage.Subject = "Verification Code";
+                        mailMessage.Body = $"Your verification code is {msg}";
 
+                        smtpClient.Send(mailMessage);
+
+                    }
                 }
-            }
+            });
+
+            thread.Start();
+            
         }
 
 

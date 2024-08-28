@@ -3,25 +3,31 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-Name="p"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:local="clr-namespace:AppUserPanel.Pages"
+Name="p" 
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="1000"
       Title="SignUpPage">
 
-    <Grid >
-        <Border BorderThickness="2" Opacity="0.95" Margin="20">
+    <Grid Height="550" Width="1000">
+
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/pb.jpg"/>
+        </Grid.Background>
+    <Grid Height="450" Width="800" >
+        <Border BorderThickness="2" Opacity="0.95" Margin="20,14,20,7">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#462AD8" Offset="0"/>
+                    <GradientStop Color="BurlyWood" Offset="0"/>
                     <GradientStop Color="#DA34AE" Offset="0.75"/>
-                    <GradientStop Color="#8A16C1" Offset="1"/>
+                    <GradientStop Color="Green" Offset="1"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                    <GradientStop Color="DarkBlue" Offset="0"/>
-                    <GradientStop Color="DarkRed" Offset="1"/>
+                    <GradientStop Color="DarkGray" Offset="0"/>
+                    <GradientStop Color="Transparent" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
             <StackPanel Height="443" HorizontalAlignment="Center" VerticalAlignment="Center" Width="568">
@@ -30,32 +36,33 @@ Name="p"
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Foreground="White" Content="First Name" Width="150" />
-                    <TextBox Foreground="White" Width="400" Text="{Binding NewUser.Firstname, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Foreground="Black" Content="First Name" Width="150" />
+                        <TextBox  Foreground="Black" Width="400" Text="{Binding NewUser.Firstname, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Foreground="White" Content="Last Name" Width="150" />
-                    <TextBox Foreground="White" Width="400" Text="{Binding NewUser.LatsName, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label  Foreground="Black" Content="Last Name" Width="150" />
+                        <TextBox  Foreground="Black" Width="400" Text="{Binding NewUser.LatsName, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Foreground="White" Content="UserName" Width="150" />
-                    <TextBox Foreground="White" Width="400" Text="{Binding NewUser.UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label  Foreground="Black" Content="UserName" Width="150" />
+                        <TextBox  Foreground="Black" Width="400" Text="{Binding NewUser.UserName, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
 
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Foreground="White" Content="Email" Width="150" />
-                    <TextBox Foreground="White" Width="400" Text="{Binding NewUser.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label  Foreground="Black" Content="Email" Width="150" />
+                        <TextBox  Foreground="Black" Width="400" Text="{Binding NewUser.Email, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Foreground="White" Content="Verification Code" Width="150" />
-                    <TextBox Foreground="White" Width="400" Text="{Binding Codemail, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label  Foreground="Black" Content="Verification Code" Width="150" />
+                        <TextBox  Foreground="Black" Width="400" Text="{Binding Codemail, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
-                <StackPanel>
-                    <DatePicker
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Birthdate"/>
+                        <DatePicker
                    Style="{StaticResource MaterialDesignDatePicker}"
                    IsTodayHighlighted="True"
                    SelectedDate="{Binding Birthdate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -63,16 +70,27 @@ Name="p"
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Foreground="White" Content="Password" Width="150" />
-                    <TextBox Foreground="White" Width="400" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label  Foreground="Black" Content="Password" Width="150" />
+
+                    <PasswordBox
+                           x:Name="PasswordBox"
+                           materialDesign:HintAssist.Hint="Password"
+                           materialDesign:TextFieldAssist.HasClearButton="True"
+                           materialDesign:HintAssist.HelperText="At least 4 characters"
+                           local:PasswordBoxHelper.BoundPassword="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="33" Width="297"
+                         >
+
+                    </PasswordBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <Button Foreground="AliceBlue" Background="Transparent" Command="{Binding RegisterCommand}" Width="150" Margin="10" Content="Register"/>
-                    <Button Foreground="AliceBlue" Background="Transparent" Content="Get Code" Command="{Binding GetCode}"/>
-                    <Button Foreground="AliceBlue" Background="Transparent" Command="{Binding BackCommand}" CommandParameter="{Binding ElementName=p}" Width="150" Margin="10" Content="Back"/>
+                    <Button  Foreground="Black" Background="Transparent" Command="{Binding RegisterCommand}" Width="150" Margin="10" Content="Register"/>
+                    <Button  Foreground="Black" Background="Transparent" Content="Get Code" Command="{Binding GetCode}"/>
+                    <Button  Foreground="Black" Background="Transparent" Command="{Binding BackCommand}" CommandParameter="{Binding ElementName=p}" Width="150" Margin="10" Content="Back"/>
                 </StackPanel>
             </StackPanel>
         </Border>
     </Grid>
+    </Grid>
+
 </Page>

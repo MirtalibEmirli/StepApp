@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AppUserPanel.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      mc:Ignorable="d" 
-      d:DesignHeight="570" d:DesignWidth="1000"
+      mc:Ignorable="d"  Name="page"
+      d:DesignHeight="575" d:DesignWidth="1000"
       Title="ProfilPage">
 
     <Page.Resources>
@@ -23,8 +23,8 @@
         <Border CornerRadius="10 0 0 10">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#223266" Offset="0"/>
-                    <GradientStop Color="#27396b" Offset="1"/>
+                    <GradientStop Color="#482828" Offset="0"/>
+                    <GradientStop Color="#37396b" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
 
@@ -36,12 +36,12 @@
                 </StackPanel>
 
                 <!-- User Information -->
-                <TextBlock Text="{Binding User.UserName}" FontSize="18" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding User.UserName}" FontSize="18" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
                 <Button Content="Change Username" Command="{Binding ChangeUsernameCommand}" Style="{StaticResource menubutton}" Margin="10 0 0 20"/>
                 <Button Content="Change Email" Command="{Binding ChangeEmailCommand}" Style="{StaticResource menubutton}" Margin="10 0 0 20"/>
 
                 <!-- Separator -->
-               
+
                 <!-- Menu buttons -->
                 <Button Command="{Binding ViewOrdersCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
@@ -63,11 +63,19 @@
                         <TextBlock Text="DashBoard"/>
                     </StackPanel>
                 </Button>
+
+                <Button HorizontalAlignment="Left" 
+            Margin="5,0,5,0"
+            Background="Transparent"
+            Command="{Binding BackCommand}"
+             CommandParameter="{Binding ElementName=page}" Width="171">
+                    <materialDesign:PackIcon Kind="ArrowLeft" VerticalAlignment="Center" Width="181" HorizontalAlignment="Center" Height="42" />
+                </Button>
             </StackPanel>
         </Border>
 
         <!-- Main Content -->
-        <Grid Grid.Column="1" Margin="10">
+        <Grid Grid.Column="1"  >
             <!-- Content area where orders, credit cards, etc., will be displayed -->
             <Frame Content="{Binding CurrentView}"/>
         </Grid>
