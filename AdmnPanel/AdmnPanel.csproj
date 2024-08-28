@@ -13,6 +13,7 @@
     <None Remove="Images\exitt.png" />
     <None Remove="Images\marketicon.png" />
     <None Remove="Images\mee.jpg" />
+    <None Remove="Images\pb.jpg" />
     <None Remove="Images\shopping_cart.png" />
   </ItemGroup>
 
@@ -27,6 +28,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\mee.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\pb.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\shopping_cart.png">

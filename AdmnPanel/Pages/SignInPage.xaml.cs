@@ -22,7 +22,7 @@ namespace AppAdminPanel.Pages
         public SignInPage()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<SignInPageViewModel>();
+            DataContext =new SignInPageViewModel();
         }
     }
 }

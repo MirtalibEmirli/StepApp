@@ -97,7 +97,7 @@ namespace AdmnPanel.ViewModel
             {
                 if (obj is Page page)
                 {
-                    page.NavigationService.Navigate(App.Container.GetInstance<AddCategoryPage>());
+                    page.NavigationService.Navigate(new AddCategoryPage());
                 }
             }
             catch (Exception ex)

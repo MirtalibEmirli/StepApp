@@ -11,6 +11,81 @@
 
     <Page.Resources>
         <local:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter"/>
+
+        <Style x:Key="ProductItemStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray" Direction="270" ShadowDepth="4" BlurRadius="8"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style  TargetType="ListViewItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border Background="{TemplateBinding Background}"
+          BorderBrush="{TemplateBinding BorderBrush}"
+          BorderThickness="1"
+          CornerRadius="8"
+          Padding="{TemplateBinding Padding}">
+                            <Border.RenderTransform>
+                                <TranslateTransform/>
+                            </Border.RenderTransform>
+                            <Border.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                      To="LightGray" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(TranslateTransform.Y)"
+                                       To="-5" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                      To="White" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(TranslateTransform.Y)"
+                                       To="0" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Border.Triggers>
+                            <Grid>
+                                <ContentPresenter ContentSource="Content"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ImageMouseOverStyle" TargetType="Image">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.8"/>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
     </Page.Resources>
 
     <Grid>
@@ -56,30 +131,59 @@
 
         <!-- Main Content -->
         <Grid Grid.Row="1" Margin="10">
-            <ListView SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"  x:Name="lw" ItemsSource="{Binding Products}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+
+
+
+
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Auto"
+          ScrollViewer.VerticalScrollBarVisibility="Auto" 
+          SelectedItem="{Binding SelectedProduct, Mode=TwoWay}" 
+          x:Name="lw" 
+          ItemsSource="{Binding Products}" 
+          HorizontalAlignment="Stretch" 
+          VerticalAlignment="Stretch"
+                       ItemContainerStyle="{StaticResource {x:Type ListViewItem}}"
+                      >
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="#D3D3D3" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="80" Height="80" Margin="5">
+                        <Border Style="{StaticResource ProductItemStyle}" 
+                    BorderBrush="#D3D3D3" 
+                    BorderThickness="1" 
+                    CornerRadius="5" 
+                    Padding="10" 
+                    Margin="5">
+                            <WrapPanel Orientation="Horizontal">
+                             
+                                <Image Width="80" Height="80" Margin="5" Style="{StaticResource ImageMouseOverStyle}">
                                     <Image.Source>
                                         <Binding Path="Photo.Bytes" Converter="{StaticResource ByteArrayToImageConverter}"/>
                                     </Image.Source>
                                 </Image>
                                 <StackPanel Margin="10,0,0,0">
                                     <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="#FFFFFF"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='Price: {0:C}'}" FontSize="14" Foreground="#CCCCCC"/>
+                                    <TextBlock Padding="5,2" Margin="0,0,5,0" FontSize="14">
+                                        <TextBlock.Inlines>
+                                            <Run Text="{Binding Price}" />
+                                            <Run Text="$" />
+                                        </TextBlock.Inlines>
+                                    </TextBlock>
                                     <TextBlock Text="{Binding Quantity, StringFormat='Quantity: {0}'}" FontSize="14" Foreground="#CCCCCC"/>
                                     <TextBlock Text="{Binding Category.Name}" FontSize="14" Foreground="#CCCCCC"/>
-                                    <TextBlock Text="{Binding Photo.Description}" FontSize="14" Foreground="#CCCCCC"/>
-                                    <TextBlock Text="{Binding Photo.FileExtension}" FontSize="12" Foreground="#AAAAAA"/>
-                                    <TextBlock Text="{Binding Photo.Size, StringFormat='Size: {0:N2} MB'}" FontSize="12" Foreground="#AAAAAA"/>
                                 </StackPanel>
-                            </StackPanel>
+                            </WrapPanel>
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
         </Grid>
     </Grid>
 </Page>

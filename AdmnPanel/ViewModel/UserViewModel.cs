@@ -4,6 +4,7 @@ using AppAdminPanel.Commands;
 using AppAdminPanel.ViewModel;
 using AppLibrary.Data;
 using AppLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdmnPanel.ViewModel
 {
@@ -31,8 +32,11 @@ namespace AdmnPanel.ViewModel
         {
             using (var context = new MirtalibDbContext())
             {
-                var users = context.Users.ToList();
-                Users = new ObservableCollection<User>(users);
+                ///
+                 
+                    var users = context.Users.ToList();
+                    Users = new ObservableCollection<User>(users);
+                
             }
         }
     }

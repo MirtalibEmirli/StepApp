@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:AppAdminPanel.Pages"
+   xmlns:local="clr-namespace:AdmnPanel.Pages"
       mc:Ignorable="d"  Name="mainp"
       d:DesignHeight="500" d:DesignWidth="1000"
       Title="SignInPage">
@@ -12,7 +12,7 @@
     <Border >
 
         <Border.Background>
-            <ImageBrush ImageSource="../Images/2s.png" 
+            <ImageBrush ImageSource="/Images/pb.jpg" 
          Stretch="UniformToFill"/>
         </Border.Background>
 
@@ -39,21 +39,29 @@
 
                     <StackPanel  Grid.Row="1" >
                         <Border   BorderBrush="Transparent"  BorderThickness="2" CornerRadius="5" Width="90" Margin="10">
-                            <Label Foreground="White" Height="34" FontSize="16" HorizontalAlignment="Center" Content="Name"/>
+                            <Label Foreground="Black" Height="34" FontSize="16" HorizontalAlignment="Center" Content="Name"/>
                         </Border>
-                        <TextBox  FontSize="17"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Text="{Binding  FirstName, UpdateSourceTrigger=PropertyChanged}" Width="222" Height="28" />
+                        <TextBox  FontSize="17"   Foreground="Black" Text="{Binding  FirstName, UpdateSourceTrigger=PropertyChanged}" Width="222" Height="28" />
 
                         <Border  Width="90" CornerRadius="5" BorderBrush="Transparent" BorderThickness="2"   Margin="10">
-                            <Label Background="Transparent" Foreground="White" Height="34" FontSize="17" HorizontalAlignment="Center" Content="Password"/>
+                            <Label Background="Transparent" Foreground="Black" Height="34" FontSize="17" HorizontalAlignment="Center" Content="Password"/>
                         </Border>
-                        <TextBox  FontSize="17"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Text="{Binding  Password, UpdateSourceTrigger=PropertyChanged}" Width="222" Height="28" />
+                        <PasswordBox
+  x:Name="PasswordBox"
+  materialDesign:HintAssist.Hint="Password"
+  materialDesign:TextFieldAssist.HasClearButton="True"
+  materialDesign:HintAssist.HelperText="At least 4 characters"
+  local:PasswordBoxHelper.BoundPassword="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="49" Width="297"
+>
+
+                        </PasswordBox>
 
                     </StackPanel>
 
                     <StackPanel Height="200" Grid.Row="3" Margin="0,0,0,-46">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Background="Transparent" Foreground="AliceBlue" Margin="20" Command="{Binding Entercommand}" CommandParameter="{Binding ElementName=mainp}" Content="Log in" Height="34" FontSize="17" Width="164" BorderBrush="Transparent"/>
-                            <Button  Background="Transparent" Foreground="AliceBlue" CommandParameter="{Binding ElementName=mainp}"  Command="{Binding BackCommand}" Content="Back" Width="157" Height="34" FontSize="17"  BorderBrush="Transparent"/>
+                            <Button Background="Transparent" Foreground="Black" Margin="20" Command="{Binding Entercommand}" CommandParameter="{Binding ElementName=mainp}" Content="Log in" Height="34" FontSize="17" Width="164" BorderBrush="Transparent"/>
+                            <Button  Background="Transparent" Foreground="Black" CommandParameter="{Binding ElementName=mainp}"  Command="{Binding BackCommand}" Content="Back" Width="157" Height="34" FontSize="17"  BorderBrush="Transparent"/>
                         </StackPanel>
                     </StackPanel>
 

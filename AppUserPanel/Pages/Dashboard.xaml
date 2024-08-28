@@ -12,6 +12,8 @@
     <!--Resorces-->
     <Page.Resources>
         <local:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter"/>
+      
+        
         <Style x:Key="ProductItemStyle" TargetType="Border">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Margin" Value="10"/>
@@ -23,7 +25,7 @@
             </Setter>
         </Style>
 
-        <Style TargetType="ListViewItem">
+        <Style  TargetType="ListViewItem">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="Padding" Value="0"/>
@@ -72,10 +74,7 @@
             </Setter>
         </Style>
 
-
-
-
-        <Style TargetType="Image">
+        <Style x:Key="ImageMouseOverStyle" TargetType="Image">
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Opacity" Value="0.8"/>
@@ -87,69 +86,9 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
-        <Style x:Key="IconButtonStyle" TargetType="Button" BasedOn="{x:Null}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Focusable" Value="False"/>
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                 BorderBrush="{TemplateBinding BorderBrush}"
-                 BorderThickness="0">
-                            <ContentPresenter HorizontalAlignment="Center"
-                               VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Transparent"/>
-
-                    <Trigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                     Storyboard.TargetProperty="Width"
-                     To="34"
-                     Duration="0:0:0.3"/>
-                                <DoubleAnimation
-                     Storyboard.TargetProperty="Height"
-                     To="32"
-                     Duration="0:0:0.3"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                     Storyboard.TargetProperty="Width"
-                     To="30"
-                     Duration="0:0:0.5"/>
-                                <DoubleAnimation
-                     Storyboard.TargetProperty="Height"
-                     To="30"
-                     Duration="0:0:0.5"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.ExitActions>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-
-
+        
+        
+       
     </Page.Resources>
 
 
@@ -192,7 +131,7 @@
                     <materialDesign:PackIcon Kind="CartAdd" Width="40" Height="30" />
                 </Button>
 
-                <Button  CommandParameter="{Binding ElementName=db}" Command="{Binding BackCommand}" Style="{StaticResource menubutton}">
+                <Button  Click="CloseButton_Click"  Style="{StaticResource menubutton}">
                     <materialDesign:PackIcon Kind="Logout" Width="40" Height="30"/>
                 </Button>
             </StackPanel>
@@ -200,18 +139,37 @@
 
 
         <Grid Grid.Row="1" Margin="10">
-            <ListView   ScrollViewer.HorizontalScrollBarVisibility="Auto"
-ScrollViewer.VerticalScrollBarVisibility="Auto" SelectedItem="{Binding SelectedProduct, Mode=TwoWay}" x:Name="lw" ItemsSource="{Binding Products}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+
+
+
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Auto"
+          ScrollViewer.VerticalScrollBarVisibility="Auto" 
+          SelectedItem="{Binding SelectedProduct, Mode=TwoWay}" 
+          x:Name="lw" 
+          ItemsSource="{Binding Products}" 
+          HorizontalAlignment="Stretch" 
+          VerticalAlignment="Stretch"
+                       ItemContainerStyle="{StaticResource {x:Type ListViewItem}}"
+                      >
+
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="3" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="#D3D3D3" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
+                        <Border Style="{StaticResource ProductItemStyle}" 
+                    BorderBrush="#D3D3D3" 
+                    BorderThickness="1" 
+                    CornerRadius="5" 
+                    Padding="10" 
+                    Margin="5">
                             <WrapPanel Orientation="Horizontal">
-                                <Image Width="80" Height="80" Margin="5">
+                                <!-- Image için Style uygulaması -->
+                                <Image Width="80" Height="80" Margin="5" Style="{StaticResource ImageMouseOverStyle}">
                                     <Image.Source>
                                         <Binding Path="Photo.Bytes" Converter="{StaticResource ByteArrayToImageConverter}"/>
                                     </Image.Source>

@@ -87,7 +87,7 @@
                     </ListView>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20,10,0,0">
-                        <Button Command="{Binding AddCommand}" Content="Add" Width="120" Height="40" Background="#007ACC" Foreground="White" FontWeight="Bold" BorderBrush="#007ACC" Margin="0,0,10,0" Padding="5"/>
+                        <Button CommandParameter="{Binding ElementName=page}" Command="{Binding AddCommand}" Content="Add" Width="120" Height="40" Background="#007ACC" Foreground="White" FontWeight="Bold" BorderBrush="#007ACC" Margin="0,0,10,0" Padding="5"/>
                         <Button CommandParameter="{Binding ElementName=page}" Command="{Binding BackCommand}" Content="Back" Width="120" Height="40" Background="White" Foreground="#007ACC" FontWeight="Bold" BorderBrush="#007ACC" Padding="5"/>
                     </StackPanel>
                 </StackPanel>

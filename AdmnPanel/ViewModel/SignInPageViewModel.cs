@@ -69,7 +69,7 @@ public class SignInPageViewModel : BaseViewModel
         if (obj is Page page)
         {
 
-            page.NavigationService.Navigate(App.Container.GetInstance<Dashboard>());
+            page.NavigationService.Navigate(new Dashboard());
             FirstName = string.Empty;
             Password = string.Empty;
         }

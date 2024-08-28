@@ -23,7 +23,7 @@ namespace AdmnPanel.Pages
         public AddCategoryPage()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<AddCategoryPageViewModel>();
+            DataContext = new AddCategoryPageViewModel();
         }
     }
 }

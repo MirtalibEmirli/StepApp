@@ -14,19 +14,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AppUserPanel.Pages
+namespace AppUserPanel.Pages;
+ 
+public partial class Dashboard : Page
 {
-    /// <summary>
-    /// Interaction logic for Dashboard.xaml
-    /// </summary>
-    public partial class Dashboard : Page
+    int id;
+    public Dashboard()
     {
-        int id;
-        public Dashboard()
-        {
-            InitializeComponent();
-            DataContext = new DashboardViewModel();
-        }
-       
+        InitializeComponent();
+        DataContext = new DashboardViewModel();
     }
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        MessageBoxResult result = MessageBox.Show("Are you sure Close?", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+        if (result == MessageBoxResult.OK)
+        {
+            Window.GetWindow(this)?.Close();
+
+        }
+
+
+    }
+
 }

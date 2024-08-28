@@ -25,6 +25,7 @@ namespace AdmnPanel.ViewModel
         public ICommand AddProductCommand { get; set; }
         public ICommand DashboardCommand { get; set; }
         public ICommand UsersCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
 
         MirtalibDbContext dbContext;
         private ObservableCollection<Product> _products;
@@ -46,7 +47,13 @@ namespace AdmnPanel.ViewModel
             UsersCommand = new RelayCommand(UsersExecute);
             BackCommand = new RelayCommand(BackCommandExecute);
             DashboardCommand = new RelayCommand(RefreshDashboard);
+            DeleteCommand = new RelayCommand(DeleteExecute);
             LoadProducts();
+        }
+
+        private void DeleteExecute(object? obj)
+        {
+             ////
         }
 
         private void RefreshDashboard(object? obj)
@@ -59,7 +66,7 @@ namespace AdmnPanel.ViewModel
         {
             if (obj is Page page)
             {
-                page.NavigationService.Navigate(App.Container.GetInstance<UserPage>());
+                page.NavigationService.Navigate(new UserPage());
             }
         }
 
@@ -67,7 +74,7 @@ namespace AdmnPanel.ViewModel
         private void LoadProducts()
         {
 
-            var datass = dbContext.Products.Include(x => x.Photo).ToList();
+            var datass = dbContext.Products.Include(x => x.Photo).Include(x=> x.Category).ToList();
             Products = new ObservableCollection<Product>(datass);
         }
 
@@ -75,7 +82,7 @@ namespace AdmnPanel.ViewModel
         {
             if (obj is Page page)
             {
-                page.NavigationService.Navigate(App.Container.GetInstance<AddProductPage>());
+                page.NavigationService.Navigate(new AddProductPage());
             }
         }
 
@@ -85,7 +92,7 @@ namespace AdmnPanel.ViewModel
             {
                 if (obj is Page page && page.NavigationService != null)
                 {
-                    page.NavigationService.Navigate(App.Container.GetInstance<CategoryPage>());
+                    page.NavigationService.Navigate(new CategoryPage());
 
                 }
                 else

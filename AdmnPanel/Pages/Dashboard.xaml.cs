@@ -29,7 +29,14 @@ namespace AdmnPanel.Pages
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this)?.Close();
+            MessageBoxResult result = MessageBox.Show("Are you sure Close?","Confirmation",MessageBoxButton.OKCancel,MessageBoxImage.Question);
+            if (result==MessageBoxResult.OK)
+            {
+                Window.GetWindow(this)?.Close();
+
+            }
+
+
         }
 
     }

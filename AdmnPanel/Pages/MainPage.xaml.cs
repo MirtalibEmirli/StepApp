@@ -22,7 +22,7 @@ namespace AppAdminPanel.Pages
         public MainPage()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<MainPageViewModel>();
+            DataContext = new MainPageViewModel();
         }
 
        

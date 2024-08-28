@@ -19,25 +19,26 @@ namespace AppAdminPanel
 
         public void RegisterViews()
         {
-            Container.RegisterSingleton<MainPage>();
+           /* Container.RegisterSingleton<MainPage>();
             Container.RegisterSingleton<SignInPage>();
             Container.RegisterSingleton<Dashboard>();
             Container.RegisterSingleton<AddCategoryPage>();
             Container.RegisterSingleton<CategoryPage>();
             Container.Register<AddProductPage>();
             Container.Register<UserPage>();
-
+           */
         }
 
         public void RegisterViewModels()
         {
+            /*
             Container.RegisterSingleton<MainPageViewModel>();
             Container.RegisterSingleton<SignInPageViewModel>();
             Container.RegisterSingleton<DashboardViewModel>();
             Container.RegisterSingleton<AddCategoryPageViewModel>();
             Container.RegisterSingleton<CategoryViewModel>();
             Container.RegisterSingleton<AddProductViewModel>();
-            Container.RegisterSingleton<UserViewModel>();
+            Container.RegisterSingleton<UserViewModel>();*/
         }
     }
 }

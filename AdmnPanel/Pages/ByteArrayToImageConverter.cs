@@ -3,62 +3,36 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace AdmnPanel.Pages
+public class ByteArrayToImageConverter : IValueConverter
 {
-    public class ByteArrayToImageConverter : IValueConverter
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        if (value is byte[] imageData && imageData.Length > 0)
         {
-            if (value is byte[] imageData)
+            try
             {
                 using (var stream = new MemoryStream(imageData))
                 {
                     var bitmap = new BitmapImage();
                     bitmap.BeginInit();
-                    bitmap.StreamSource = stream;
                     bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = stream;
                     bitmap.EndInit();
                     return bitmap;
                 }
             }
-            return null;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is BitmapImage bitmapImage)
+            catch (Exception ex)
             {
-                using (var memoryStream = new MemoryStream())
-                {
-                    BitmapEncoder encoder;
-                    switch (bitmapImage.UriSource?.ToString().ToLower())
-                    {
-                        case string uri when uri.EndsWith(".png"):
-                            encoder = new PngBitmapEncoder();
-                            break;
-                        case string uri when uri.EndsWith(".jpg") || uri.EndsWith(".jpeg"):
-                            encoder = new JpegBitmapEncoder();
-                            break;
-                        case string uri when uri.EndsWith(".bmp"):
-                            encoder = new BmpBitmapEncoder();
-                            break;
-                        case string uri when uri.EndsWith(".gif"):
-                            encoder = new GifBitmapEncoder();
-                            break;
-                        case string uri when uri.EndsWith(".tiff"):
-                            encoder = new TiffBitmapEncoder();
-                            break;
-                        default:
-                            encoder = new PngBitmapEncoder();
-                            break;
-                    }
-
-                    encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-                    encoder.Save(memoryStream);
-                    return memoryStream.ToArray();
-                }
+                // Log or handle the error
+                System.Diagnostics.Debug.WriteLine($"Image conversion failed: {ex.Message}");
+                return null;
             }
-            return null;
         }
+        return null;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return null;
     }
 }

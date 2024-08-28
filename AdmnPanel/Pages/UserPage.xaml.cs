@@ -25,7 +25,7 @@ namespace AdmnPanel.Pages
         public UserPage()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<UserViewModel>();
+            DataContext = new UserViewModel();
         }
     }
 }

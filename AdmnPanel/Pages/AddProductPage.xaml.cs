@@ -25,7 +25,7 @@ namespace AdmnPanel.Pages
         public AddProductPage()
         {
             InitializeComponent();
-            DataContext = App.Container.GetInstance<AddProductViewModel>();
+            DataContext = new AddProductViewModel();
         }
     }
 }

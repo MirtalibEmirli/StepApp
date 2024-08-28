@@ -1,10 +1,12 @@
-﻿using AppAdminPanel.Commands;
+﻿using AdmnPanel.Pages;
+using AppAdminPanel.Commands;
 using AppAdminPanel.ViewModel;
 using AppLibrary.Data;
 using AppLibrary.Models;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace AdmnPanel.ViewModel
@@ -100,7 +102,7 @@ namespace AdmnPanel.ViewModel
 
         private void AddProduct(object? obj)
         {
-            if (SelectedCategory != null && !string.IsNullOrWhiteSpace(ProductName))
+            if (SelectedCategory != null && !string.IsNullOrWhiteSpace(ProductName)&&obj is Page page)
             {
                 using (var dbContext = new MirtalibDbContext())
                 {
@@ -129,8 +131,10 @@ namespace AdmnPanel.ViewModel
                         _productName = string.Empty;
                         _productPrice = 0;
                         _productQuantity = 0;
+                        SelectedCategory = new Category();
                         Photos = new ObservableCollection<PhotoProduct>();
                         System.Windows.MessageBox.Show("Product added successfully!");
+                        page.NavigationService.Navigate(new Dashboard());
                         //burda problem var add edirem amma ondan sora propertyler bosalmr
                     }
                     else
