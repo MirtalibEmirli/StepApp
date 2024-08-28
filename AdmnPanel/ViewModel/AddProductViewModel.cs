@@ -3,10 +3,8 @@ using AppAdminPanel.ViewModel;
 using AppLibrary.Data;
 using AppLibrary.Models;
 using Microsoft.Win32;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Windows.Input;
 
 namespace AdmnPanel.ViewModel

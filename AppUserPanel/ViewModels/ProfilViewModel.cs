@@ -2,13 +2,9 @@
 using AppLibrary.Models;
 using AppUserPanel.Commands;
 using AppUserPanel.Pages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.IO;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace AppUserPanel.ViewModels;
@@ -59,7 +55,7 @@ public class ProfilViewModel : BaseViewModel
         catch (Exception ex)
         {
             // Log or display the error
-            MessageBox.Show($"Error loading dashboard: {ex.Message}");
+            System.Windows.MessageBox.Show($"Error loading dashboard: {ex.Message}");
         }
     }
 
@@ -81,7 +77,29 @@ public class ProfilViewModel : BaseViewModel
 
     private void ChangePhoto(object obj)
     {
-        // Implement logic to change photo
+
+
+    }
+    private void AddPhoto(object? obj)
+    {
+        OpenFileDialog openFileDialog = new OpenFileDialog
+        {
+            Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png"
+        };
+
+        if (openFileDialog.ShowDialog() == true)  // Corrected line
+        {
+            byte[] imageBytes = File.ReadAllBytes(openFileDialog.FileName);
+            var photo = new PhotoProduct
+            {
+                Bytes = imageBytes,
+                FileExtension = Path.GetExtension(openFileDialog.FileName),
+                Description = "Product Photo",
+                Size = imageBytes.Length / 1024m,
+            };
+
+            // You can now proceed to add the photo to your collection or save it as needed
+        }
     }
 
     private void ChangeUsername(object obj)
