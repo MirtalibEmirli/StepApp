@@ -109,7 +109,7 @@ namespace AppUserPanel.ViewModels
 
         private void LoadProducts()
         {
-            var datass = dbContext.Products.Include(x => x.Photo).ToList();
+            var datass = dbContext.Products.Include(x => x.Photo).Include(x=> x.Category).ToList();
             Products = new ObservableCollection<Product>(datass);
         }
 

@@ -78,29 +78,33 @@ public class ProfilViewModel : BaseViewModel
     private void ChangePhoto(object obj)
     {
 
-
-    }
-    private void AddPhoto(object? obj)
-    {
         OpenFileDialog openFileDialog = new OpenFileDialog
         {
             Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png"
         };
 
-        if (openFileDialog.ShowDialog() == true)  // Corrected line
+        if (openFileDialog.ShowDialog()==DialogResult.OK)
         {
+           
             byte[] imageBytes = File.ReadAllBytes(openFileDialog.FileName);
-            var photo = new PhotoProduct
+            var photo = new PhotoUser
             {
                 Bytes = imageBytes,
                 FileExtension = Path.GetExtension(openFileDialog.FileName),
-                Description = "Product Photo",
+                Description = $"{User.UserName} Photo",
                 Size = imageBytes.Length / 1024m,
+                UserId = User.Id,
             };
+            User.Photo = imageBytes;
 
-            // You can now proceed to add the photo to your collection or save it as needed
+            context.Users.Update(User);
+            context.SaveChanges();
+            User = context.Users.FirstOrDefault(a => PasswordHasher.UserId == a.Id) ?? new User();
+
         }
     }
+
+
 
     private void ChangeUsername(object obj)
     {
