@@ -2,6 +2,7 @@
 using AppLibrary.Models;
 using AppUserPanel.Commands;
 using AppUserPanel.Pages;
+using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -48,7 +49,10 @@ public class ProfilViewModel : BaseViewModel
             ViewCreditCardsCommand = new RelayCommand(ViewCreditCards);
             DashBoardCommand = new RelayCommand(DasboardExecute);
             BackCommand = new RelayCommand(BackCommandExecute);
-            User = context.Users.FirstOrDefault(a => PasswordHasher.UserId == a.Id)?? new User();
+            //default sekill gelmir
+            User = context.Users
+                        .Include(u => u.Photo)
+                        .FirstOrDefault(a => PasswordHasher.UserId == a.Id)??new User();
 
             CurrentView = new DefaultView();
         }
@@ -72,37 +76,45 @@ public class ProfilViewModel : BaseViewModel
 
     private void DasboardExecute(object? obj)
     {
-
+        CurrentView = new DefaultView();
     }
 
     private void ChangePhoto(object obj)
     {
-
-        OpenFileDialog openFileDialog = new OpenFileDialog
+        using (var openFileDialog = new OpenFileDialog
         {
             Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png"
-        };
-
-        if (openFileDialog.ShowDialog()==DialogResult.OK)
+        })
         {
-           
-            byte[] imageBytes = File.ReadAllBytes(openFileDialog.FileName);
-            var photo = new PhotoUser
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Bytes = imageBytes,
-                FileExtension = Path.GetExtension(openFileDialog.FileName),
-                Description = $"{User.UserName} Photo",
-                Size = imageBytes.Length / 1024m,
-                UserId = User.Id,
-            };
-            User.Photo = imageBytes;
+                byte[] imageBytes = File.ReadAllBytes(openFileDialog.FileName);
+                var photo = new PhotoUser
+                {
+                    Bytes = imageBytes,
+                    FileExtension = Path.GetExtension(openFileDialog.FileName),
+                    Description = $"{User.UserName} Photo",
+                    Size = imageBytes.Length / 1024m,
+                    UserId = User.Id
+                };
 
-            context.Users.Update(User);
-            context.SaveChanges();
-            User = context.Users.FirstOrDefault(a => PasswordHasher.UserId == a.Id) ?? new User();
+                User.Photo = photo;
 
+                context.Users.Update(User);
+                context.SaveChanges();
+
+                User = context.Users
+                              .Include(u => u.Photo)
+                              .FirstOrDefault(u => u.Id == User.Id) ?? new User();
+
+                OnPropertyChanged(nameof(User));
+                context.SaveChanges();
+
+            }
         }
     }
+
+
 
 
 
@@ -116,13 +128,12 @@ public class ProfilViewModel : BaseViewModel
 
     private void ChangeEmail(object obj)
     {
-        // Implement logic to change email
+        CurrentView = new ChangeMailPage();
     }
 
     private void ViewOrders(object obj)
     {
-        // Implement logic to display previous orders
-        // CurrentView = new OrdersView();
+        CurrentView = new Orders(); 
     }
 
     private void AddCreditCard(object obj)

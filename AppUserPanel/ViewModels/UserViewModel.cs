@@ -3,6 +3,7 @@ using AppLibrary.Models;
 using AppUserPanel.Commands;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace AppUserPanel.ViewModels
@@ -28,23 +29,27 @@ namespace AppUserPanel.ViewModels
             set { products = value;OnPropertyChanged(); }
         }
         public ICommand BuyCommand { get; }
+        public ICommand CancelCommand { get; }
 
 
         public UserViewModel()
         {
             dbContext = new();
-            Products = new ObservableCollection<Product>
-            {
-                new Product
-                {
-                    Id = 1,
-                    Name = "Salam",
-                    Price = 12
-                }
-            };
+            Products = new ObservableCollection<Product>();
             BuyCommand = new RelayCommand(BuyProduct, CanExecuteBuyCommand);
             BackCommand = new RelayCommand(BackCommandExecute);
+            CancelCommand = new RelayCommand(Cancelexecute, IsExeCuteCancell);
             LoadProducts();
+        }
+
+        private bool IsExeCuteCancell(object? obj)
+        {
+            return true;
+        }
+
+        private void Cancelexecute(object? obj)
+        {
+            MessageBox.Show("fix me");
         }
 
         private bool CanExecuteBuyCommand(object parameter)
@@ -54,7 +59,7 @@ namespace AppUserPanel.ViewModels
 
         private void BuyProduct(object parameter)
         {
-             
+             ///
         }
 
         private void LoadProducts()
@@ -65,23 +70,23 @@ namespace AppUserPanel.ViewModels
                                 .ThenInclude(x => x.Photo)
                                 .FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
 
-            if (cart != null && cart.Items != null)
+            if (cart?.Items != null)
             {
-                Products.Clear(); 
                 foreach (var item in cart.Items)
                 {
                     var product = dbContext.Products
                                            .Include(p => p.Photo)
                                            .FirstOrDefault(x => x.Id == item.ProductId);
-                    product.Quantity = item.Quantity;
+
                     if (product != null)
                     {
+                        product.Quantity = item.Quantity;
                         Products.Add(product);
                     }
                 }
             }
-            
-        }
+
+            }
 
 
     }

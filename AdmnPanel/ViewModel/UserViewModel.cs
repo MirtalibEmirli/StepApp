@@ -32,11 +32,12 @@ namespace AdmnPanel.ViewModel
         {
             using (var context = new MirtalibDbContext())
             {
-                ///
-                 
-                    var users = context.Users.ToList();
-                    Users = new ObservableCollection<User>(users);
-                
+                var users = context.Users
+          .Include(u => u.Photo) 
+          .ToList();
+
+
+
             }
         }
     }

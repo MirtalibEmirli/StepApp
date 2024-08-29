@@ -1,38 +1,47 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-public class ByteArrayToImageConverter : IValueConverter
+namespace AdmnPanel.Pages
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public class ByteArrayToImageConverter : IValueConverter
     {
-        if (value is byte[] imageData && imageData.Length > 0)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            try
+            if (value is byte[] imageData && imageData.Length > 0)
             {
-                using (var stream = new MemoryStream(imageData))
+                try
                 {
-                    var bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.StreamSource = stream;
-                    bitmap.EndInit();
-                    return bitmap;
+                    using (var stream = new MemoryStream(imageData))
+                    {
+                        var bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.StreamSource = stream;
+                        bitmap.EndInit();
+                        return bitmap;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log or handle the error
+                    System.Diagnostics.Debug.WriteLine($"Image conversion failed: {ex.Message}");
+                    return null;
                 }
             }
-            catch (Exception ex)
-            {
-                // Log or handle the error
-                System.Diagnostics.Debug.WriteLine($"Image conversion failed: {ex.Message}");
-                return null;
-            }
+            return null;
         }
-        return null;
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return null;
-    }
 }

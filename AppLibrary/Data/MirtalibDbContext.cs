@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols;
 using System.Configuration;
 using System.Reflection.Emit;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace AppLibrary.Data
 {
     public class MirtalibDbContext : DbContext
@@ -38,8 +39,17 @@ namespace AppLibrary.Data
 
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
-                .HasPrecision(18, 2); 
-            
+                .HasPrecision(18, 2);
+            modelBuilder.Entity<CreditCard>().HasData(
+                new CreditCard
+                {
+                    UserId= 8,
+                    money=100000,
+                    Number = "4169738849092501",
+                    ExpirationDate=new System.DateTime(2026,01,10),
+                    CVV= "576",
+                }
+                );
             modelBuilder.Entity<Admin>().HasData(
               new Admin
               {

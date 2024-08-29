@@ -175,15 +175,15 @@
                                     </Image.Source>
                                 </Image>
                                 <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="#FFFFFF"/>
+                                    <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="Black"/>
                                     <TextBlock Padding="5,2" Margin="0,0,5,0" FontSize="14">
                                         <TextBlock.Inlines>
                                             <Run Text="{Binding Price}" />
                                             <Run Text="$" />
                                         </TextBlock.Inlines>
                                     </TextBlock>
-                                    <TextBlock Text="{Binding Quantity, StringFormat='Quantity: {0}'}" FontSize="14" Foreground="#CCCCCC"/>
-                                    <TextBlock Text="{Binding Category.Name}" FontSize="14" Foreground="#CCCCCC"/>
+                                    <TextBlock Text="{Binding Quantity, StringFormat='Quantity: {0}'}" FontSize="14" Foreground="Black"/>
+                                    <TextBlock Text="{Binding Category.Name}" FontSize="14" Foreground="Black"/>
                                 </StackPanel>
                             </WrapPanel>
                         </Border>

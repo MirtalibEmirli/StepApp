@@ -4,6 +4,8 @@ using System.Net;
 using System.Windows.Input;
 using AppUserPanel.Commands;
 using AppLibrary.Models;
+using System.Text.RegularExpressions;
+
 using System.Windows.Controls;
 using System.Security.Cryptography;
 using System.Text;
@@ -82,64 +84,69 @@ namespace AppUserPanel.Viewmodels
         #region Functions
         public bool IsGetCodeCommand(object? obj)
         {
-            return !string.IsNullOrEmpty(NewUser?.Email);
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            Regex regex = new Regex(pattern);
+            return (!string.IsNullOrEmpty(NewUser?.Email)&&regex.IsMatch(NewUser?.Email));
         }
         public bool IsRegisterCommand(object? obj)
         {
             var userExists = Database.Users.Any(u => u.UserName == NewUser.UserName);
-
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            Regex regex = new Regex(pattern);
             return NewUser != null &&
                    !string.IsNullOrEmpty(NewUser.Firstname) &&
                    !string.IsNullOrEmpty(NewUser.LatsName) &&
                    !string.IsNullOrEmpty(NewUser.Email) &&
                    Codemail == msg &&
-                   !string.IsNullOrEmpty(Password) && !userExists;
+                   !string.IsNullOrEmpty(Password) && !userExists&&regex.IsMatch(NewUser.Email);
         }
 
         public void RegisterCommandExecute(object obj)
         {
             if (NewUser != null && Password != null)
-            {
-                var userExists = Database.Users.Any(u => u.UserName == NewUser.UserName);
+            { 
 
-                if (userExists)
-                {
-                    MessageBox.Show("The username already exists. Please choose a different username.");
-                    return;
+                    var userExists = Database.Users.Any(u => u.UserName == NewUser.UserName);
+
+                    if (userExists)
+                    {
+                        MessageBox.Show("The username already exists. Please choose a different username.");
+                        return;
+                    }
+
+                    // Hashing
+                    var hashedBytes = PasswordHasher.HashPassword(Password);
+                    NewUser.DateofBirth = Birthdate;
+
+                    NewUser.Password = hashedBytes;
+
+
+
+                    //  converting the default user icon
+                    var defaultIconUri = new Uri("pack://application:,,,/Images/usericon.png");
+                    var defaultIcon = new BitmapImage(defaultIconUri);
+                    var byteArrayToImageConverter = new ByteArrayToImageConverter();
+                    var image = byteArrayToImageConverter.ConvertBack(defaultIcon, typeof(byte[]), null, CultureInfo.InvariantCulture);
+                    NewUser.Photo = image as PhotoUser;
+
+
+                    //Database.PhotoUsers.Add(image);
+
+                    // Save
+
+                    Database.Users.Add(NewUser);
+                    Database.SaveChanges();
+                    MessageBox.Show("You are registered");
+
+                    // Clear data
+                    NewUser = new AppLibrary.Models.User();
+                    Codemail = null; // Clear Codemail
+                    Password = string.Empty; // Clear Password
+                    Random random = new Random();
+                    msg = random.Next(1000, 9000);
                 }
-
-                // Hashing
-                var hashedBytes = PasswordHasher.HashPassword(Password);
-                NewUser.DateofBirth = Birthdate;
-
-                NewUser.Password = hashedBytes;
-
-
-
-                //  converting the default user icon
-                var defaultIconUri = new Uri("pack://application:,,,/Images/usericon.png");
-                var defaultIcon = new BitmapImage(defaultIconUri);
-                var byteArrayToImageConverter = new ByteArrayToImageConverter();
-                var image  = (byte[])byteArrayToImageConverter.ConvertBack(defaultIcon, typeof(byte[]), null, CultureInfo.InvariantCulture);
-                NewUser.Photo = image;
-
-                
-                //Database.PhotoUsers.Add(image);
-
-                // Save
-
-                Database.Users.Add(NewUser);
-                Database.SaveChanges();
-                MessageBox.Show("You are registered");
-
-                // Clear data
-                NewUser = new AppLibrary.Models.User();
-                Codemail = null; // Clear Codemail
-                Password = string.Empty; // Clear Password
-                Random random = new Random();
-                msg = random.Next(1000, 9000);
             }
-        }
+        
 
 
 

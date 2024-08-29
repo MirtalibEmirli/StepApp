@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:AppUserPanel.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"  Name="page"
-      d:DesignHeight="575" d:DesignWidth="1000"
+      d:DesignHeight="565" d:DesignWidth="1000"
       Title="ProfilPage">
 
     <Page.Resources>
@@ -31,7 +31,7 @@
             <StackPanel>
                 <!-- User Profile Photo -->
                 <StackPanel HorizontalAlignment="Center" Margin="0 5 0 0">
-                    <Image Width="100" Height="100" Source="{Binding User.Photo, Converter={StaticResource ByteArrayToImageConverter}}" Margin="0 0 0 10"/>
+                    <Image Width="100" Height="100" Source="{Binding User.Photo.Bytes, Converter={StaticResource ByteArrayToImageConverter}}" Margin="0 0 0 10"/>
                     <Button Content="Change Photo" Command="{Binding ChangePhotoCommand}" Style="{StaticResource menubutton}"/>
                 </StackPanel>
 
@@ -39,9 +39,7 @@
                 <TextBox Text="{Binding User.UserName}" FontSize="18" FontWeight="Bold" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
                 <Button Content="Change Username" Command="{Binding ChangeUsernameCommand}" Style="{StaticResource menubutton}" Margin="10 0 0 20"/>
                 <Button Content="Change Email" Command="{Binding ChangeEmailCommand}" Style="{StaticResource menubutton}" Margin="10 0 0 20"/>
-
-                <!-- Separator -->
-
+ 
                 <!-- Menu buttons -->
                 <Button Command="{Binding ViewOrdersCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
@@ -65,7 +63,7 @@
                 </Button>
 
                 <Button HorizontalAlignment="Left" 
-            Margin="5,0,5,0"
+            Margin="0,0,0,0"
             Background="Transparent"
             Command="{Binding BackCommand}"
              CommandParameter="{Binding ElementName=page}" Width="171">

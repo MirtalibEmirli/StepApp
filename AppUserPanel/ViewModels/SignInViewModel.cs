@@ -46,21 +46,25 @@ namespace AppUserPanel.ViewModels
         private void SignIn(object? obj)
         {
             
-            var user = dbContext.Users.FirstOrDefault(x => x.UserName == TextName && x.Password ==PasswordHasher.HashPassword(Password));
-            if(user != null&&obj is Page page)
-            {
-                PasswordHasher.UserId = user.Id;
-               
-                page.NavigationService.Navigate(new Dashboard());
-                MessageBox.Show("Sign-In Successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                TextName = string.Empty;
-                Password = string.Empty;
-            }
+                var user = dbContext.Users.FirstOrDefault(x => x.UserName == TextName && x.Password == PasswordHasher.HashPassword(Password));
+                if (user != null && obj is Page page)
+                {
+                    PasswordHasher.UserId = user.Id;
+
+                    page.NavigationService.Navigate(new Dashboard());
+                    MessageBox.Show("Sign-In Successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    TextName = string.Empty;
+                    Password = string.Empty;
+                }
+
+                else
+                {
+                    MessageBox.Show("Invalid credentials.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+
             
-            else
-            {
-                MessageBox.Show("Invalid credentials.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            
 
         }
 

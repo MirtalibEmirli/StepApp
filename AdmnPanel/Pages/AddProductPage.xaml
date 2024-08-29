@@ -12,6 +12,7 @@
         <local:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter"/>
     </Page.Resources>
 
+
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid  >
             <Grid.Background>
