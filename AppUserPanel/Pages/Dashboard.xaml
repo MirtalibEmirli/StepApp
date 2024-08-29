@@ -12,8 +12,8 @@
     <!--Resorces-->
     <Page.Resources>
         <local:ByteArrayToImageConverter x:Key="ByteArrayToImageConverter"/>
-      
-        
+
+
         <Style x:Key="ProductItemStyle" TargetType="Border">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Margin" Value="10"/>
@@ -86,9 +86,9 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
-        
-       
+
+
+
     </Page.Resources>
 
 
@@ -114,9 +114,19 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="MR Shop" FontSize="24" FontWeight="UltraLight" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="AliceBlue"/>
+            <TextBlock Text="MR Shop" FontSize="24" FontWeight="UltraLight" VerticalAlignment="Center" Margin="0,0,0,0" Foreground="AliceBlue"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="383" Height="51">
+                    <Button Content="Category" FontSize="14" Command="{Binding LoadCategory}" FontWeight="SemiBold" Foreground="White" Width="95"/>
+                    <ComboBox ItemsSource="{Binding Categories}" 
+               SelectedItem="{Binding SelectedCategory}" 
+               DisplayMemberPath="Name" 
+               Height="45" FontSize="14" 
+               Padding="5" BorderBrush="#E0E0E0" 
+               BorderThickness="1" Background="#F0F0F0" Width="241"/>
+                </StackPanel>
                 <Button CommandParameter="{Binding ElementName=db}" Command="{Binding UserCommand}" Style="{StaticResource menubutton}">
                     <materialDesign:PackIcon Kind="Basket" Width="40" Height="30" Foreground="White" />
                 </Button>
@@ -147,10 +157,8 @@
           ScrollViewer.VerticalScrollBarVisibility="Auto" 
           SelectedItem="{Binding SelectedProduct, Mode=TwoWay}" 
           x:Name="lw" 
-          ItemsSource="{Binding Products}" 
-          HorizontalAlignment="Stretch" 
-          VerticalAlignment="Stretch"
-                       ItemContainerStyle="{StaticResource {x:Type ListViewItem}}"
+          ItemsSource="{Binding Products}"
+                       ItemContainerStyle="{StaticResource {x:Type ListViewItem}}" Margin="0,1,0,0"
                       >
 
                 <ListView.ItemsPanel>

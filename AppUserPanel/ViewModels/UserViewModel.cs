@@ -3,6 +3,7 @@ using AppLibrary.Models;
 using AppUserPanel.Commands;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.Security.Policy;
 using System.Windows;
 using System.Windows.Input;
 
@@ -49,7 +50,37 @@ namespace AppUserPanel.ViewModels
 
         private void Cancelexecute(object? obj)
         {
-            MessageBox.Show("fix me");
+            var product = SelectedProduct;
+
+
+            var result = MessageBox.Show("Bir product ucun No ,secdiyinizin  hamsini almaqcun Yes ", "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var usersCart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+            var buyingProduct = dbContext.CartProducts.FirstOrDefault(x => x.ProductId == product.Id && x.CartId == usersCart.Id);
+
+
+            if (result == MessageBoxResult.No)
+            {
+                buyingProduct.Quantity = buyingProduct.Quantity - 1;
+                dbContext.CartProducts.Update(buyingProduct);
+
+
+
+                dbContext.SaveChanges();
+
+                MessageBox.Show($"{buyingProduct.Product.Name} dan 1 eded sildiniz ", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+            }
+            else
+            {
+                dbContext.Remove(buyingProduct);
+
+
+                dbContext.SaveChanges();
+                MessageBox.Show($"{buyingProduct.Product.Name} dan {buyingProduct.Quantity} qeder sildiniz ", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            Products = new();
+            LoadProducts();
         }
 
         private bool CanExecuteBuyCommand(object parameter)
@@ -59,7 +90,59 @@ namespace AppUserPanel.ViewModels
 
         private void BuyProduct(object parameter)
         {
-             ///
+            var product = SelectedProduct;
+            var cart = dbContext.CreditCarts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+            
+             
+            var result = MessageBox.Show("Bir product ucun No ,secdiyinizin  hamsini almaqcun Yes ", "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var usersCart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+            var buyingProduct = dbContext.CartProducts.FirstOrDefault(x => x.ProductId == product.Id && x.CartId == usersCart.Id);
+
+            OrderItem order = new();
+            order.ProductId = product.Id;
+            order.UserId = PasswordHasher.UserId;
+
+            if (result == MessageBoxResult.No)
+            {
+                if (cart.money < product.Price)
+                {
+                    MessageBox.Show("Balansinizda kifayet qeder vesait yoxdur", "Xeta", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                buyingProduct.Quantity = buyingProduct.Quantity - 1;
+                    dbContext.CartProducts.Update(buyingProduct);
+
+
+                order.Quantity = 1;
+                dbContext.OrderItems.Add(order);
+
+                dbContext.SaveChanges();
+
+                MessageBox.Show($"{buyingProduct.Product.Name} dan 1 eded aldiniz ", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                var cash = buyingProduct.Product.Price;
+                cart.money -=cash;
+            }
+            else
+            {
+                if (cart.money < product.Price* buyingProduct.Quantity)
+                {
+                    MessageBox.Show("Balansinizda kifayet qeder vesait yoxdur", "Xeta", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                dbContext.Remove(buyingProduct);
+                var cash = buyingProduct.Product.Price;
+                cart.money -= cash*buyingProduct.Quantity;
+                dbContext.CreditCarts.Update(cart);
+
+                order.Quantity = buyingProduct.Quantity;
+                dbContext.OrderItems.Add(order);
+
+                dbContext.SaveChanges();
+                MessageBox.Show($"{buyingProduct.Product.Name} dan {buyingProduct.Quantity} qeder aldiniz ", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            Products = new();
+            LoadProducts();
         }
 
         private void LoadProducts()

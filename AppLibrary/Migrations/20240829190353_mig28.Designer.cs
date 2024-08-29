@@ -4,6 +4,7 @@ using AppLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppLibrary.Migrations
 {
     [DbContext(typeof(MirtalibDbContext))]
-    partial class MirtalibDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240829190353_mig28")]
+    partial class mig28
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace AppLibrary.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admins", (string)null);
+                    b.ToTable("Admins");
 
                     b.HasData(
                         new
@@ -72,7 +75,7 @@ namespace AppLibrary.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.CartProduct", b =>
@@ -98,7 +101,7 @@ namespace AppLibrary.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartProducts", (string)null);
+                    b.ToTable("CartProducts");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.Category", b =>
@@ -114,7 +117,7 @@ namespace AppLibrary.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.CreditCard", b =>
@@ -144,7 +147,7 @@ namespace AppLibrary.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CreditCarts", (string)null);
+                    b.ToTable("CreditCarts");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.LikedItem", b =>
@@ -162,7 +165,7 @@ namespace AppLibrary.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LikedItems", (string)null);
+                    b.ToTable("LikedItems");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.Order", b =>
@@ -183,7 +186,7 @@ namespace AppLibrary.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.OrderItem", b =>
@@ -209,7 +212,7 @@ namespace AppLibrary.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.PhotoProduct", b =>
@@ -241,7 +244,7 @@ namespace AppLibrary.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("PhotoProducts", (string)null);
+                    b.ToTable("PhotoProducts");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.PhotoUser", b =>
@@ -273,7 +276,7 @@ namespace AppLibrary.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("PhotoUsers", (string)null);
+                    b.ToTable("PhotoUsers");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.Product", b =>
@@ -306,7 +309,7 @@ namespace AppLibrary.Migrations
 
                     b.HasIndex("LikedItemId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.User", b =>
@@ -337,7 +340,7 @@ namespace AppLibrary.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("OrderProduct", b =>
@@ -352,7 +355,7 @@ namespace AppLibrary.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("OrderProduct", (string)null);
+                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("AppLibrary.Models.Cart", b =>

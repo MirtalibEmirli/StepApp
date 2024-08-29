@@ -8,7 +8,7 @@ namespace AppLibrary.Models
 {
     public class CreditCard : BaseEntity
     {
-        public int money { get; set; }
+        public decimal money { get; set; }
         public string Number { get; set; } = null!;
         public DateTime ExpirationDate { get; set; }
         public string CVV { get; set; } = null!;

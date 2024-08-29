@@ -40,16 +40,8 @@ namespace AppLibrary.Data
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
                 .HasPrecision(18, 2);
-            modelBuilder.Entity<CreditCard>().HasData(
-                new CreditCard
-                {
-                    UserId= 8,
-                    money=100000,
-                    Number = "4169738849092501",
-                    ExpirationDate=new System.DateTime(2026,01,10),
-                    CVV= "576",
-                }
-                );
+             
+
             modelBuilder.Entity<Admin>().HasData(
               new Admin
               {
@@ -74,8 +66,7 @@ namespace AppLibrary.Data
            .WithMany(c => c.Products)
            .HasForeignKey(p => p.CategoryId);
              
-            modelBuilder.Entity<OrderItem>()
-                .HasKey(oi => new { oi.ProductId, oi.OrderId });
+           
         }
 
     }

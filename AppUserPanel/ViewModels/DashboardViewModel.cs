@@ -20,10 +20,31 @@ namespace AppUserPanel.ViewModels
         private MirtalibDbContext dbContext;
         private ObservableCollection<Product> _products;
         public ObservableCollection<Product> Products { get { return _products; } set { _products = value; OnPropertyChanged(); } }
+        private Category _selectedCategory;
+        private ObservableCollection<Category> _categories;
+        public ObservableCollection<Category> Categories
+        {
+            get => _categories;
+            set
+            {
+                _categories = value;
+                OnPropertyChanged();
+            }
+        }
 
+        public Category SelectedCategory
+        {
+            get => _selectedCategory;
+            set
+            {
+                _selectedCategory = value;
+                OnPropertyChanged(nameof(SelectedCategory));
+            }
+        }
         public ICommand ProfilCommand { get; }
         public ICommand UserCommand { get; }
         public ICommand CartCommand { get; }
+        public ICommand LoadCategory { get; }
 
         private Product _selectedProduct;
         public Product SelectedProduct
@@ -34,7 +55,7 @@ namespace AppUserPanel.ViewModels
         public DashboardViewModel()
         {
 
-
+            LoadCategory = new RelayCommand(ExecuteLoadCategory);
             dbContext = new();
             ProfilCommand = new RelayCommand(ExecuteProfilCommand);
             UserCommand = new RelayCommand(ExecuteUserCommand);
@@ -43,41 +64,48 @@ namespace AppUserPanel.ViewModels
             LoadProducts();
         }
 
-
+        private void ExecuteLoadCategory(object? obj)
+        {
+            LoadProducts();
+        }
 
         private void ExecuteCartCommand(object? obj)
         {
             try
             {
-                var cart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
-                if (cart == null)
+                if (SelectedProduct !=null)
                 {
-                    Cart newCart = new Cart
+                    var cart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+                    if (cart == null)
                     {
-                        UserId = PasswordHasher.UserId
-                    };
-                    dbContext.Carts.Add(newCart);
+                        Cart newCart = new Cart
+                        {
+                            UserId = PasswordHasher.UserId
+                        };
+                        dbContext.Carts.Add(newCart);
+                        dbContext.SaveChanges();
+                        cart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+                    }
+                    var product = SelectedProduct;
+                    var cartProduct = dbContext.CartProducts.FirstOrDefault(x => x.ProductId == product.Id && x.CartId == cart.Id);
+                    if (cartProduct is null)
+                    {
+                        cartProduct = new CartProduct
+                        {
+                            CartId = cart.Id,
+                            ProductId = product.Id,
+                            Quantity = 1
+                        };
+                        dbContext.CartProducts.Add(cartProduct);
+                    }
+                    else
+                    {
+                        cartProduct.Quantity++;
+                    }
                     dbContext.SaveChanges();
-                    cart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+                    MessageBox.Show($"{SelectedProduct.Name} added your cart successfully!");
                 }
-                var product = SelectedProduct;
-                var cartProduct = dbContext.CartProducts.FirstOrDefault(x => x.ProductId == product.Id && x.CartId == cart.Id);
-                if(cartProduct is null)
-                {
-                    cartProduct = new CartProduct
-                    {
-                        CartId = cart.Id,
-                        ProductId = product.Id,
-                        Quantity = 1
-                    };
-                    dbContext.CartProducts.Add(cartProduct);
-                }
-                else
-                {
-                    cartProduct.Quantity++;
-                }
-                dbContext.SaveChanges();
-                MessageBox.Show($"{SelectedProduct.Name} added your cart successfully!");
+                
             }
             catch (Exception ex)
             {
@@ -109,8 +137,17 @@ namespace AppUserPanel.ViewModels
 
         private void LoadProducts()
         {
-            var datass = dbContext.Products.Include(x => x.Photo).Include(x=> x.Category).ToList();
-            Products = new ObservableCollection<Product>(datass);
+            Categories = new ObservableCollection<Category>(dbContext.Categories.ToList());
+            if(SelectedCategory == null)
+            {
+                var datass = dbContext.Products.Include(x => x.Photo).Include(x=> x.Category).ToList();
+                Products = new ObservableCollection<Product>(datass);
+            }
+            else
+            {
+                var datass = dbContext.Products.Include(x => x.Photo).Include(x => x.Category).Where(x => x.CategoryId == SelectedCategory.Id).ToList();
+                Products = new ObservableCollection<Product>(datass);
+            }
         }
 
 

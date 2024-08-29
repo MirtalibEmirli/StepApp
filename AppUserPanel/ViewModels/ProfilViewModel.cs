@@ -49,7 +49,7 @@ public class ProfilViewModel : BaseViewModel
             ViewCreditCardsCommand = new RelayCommand(ViewCreditCards);
             DashBoardCommand = new RelayCommand(DasboardExecute);
             BackCommand = new RelayCommand(BackCommandExecute);
-            //default sekill gelmir
+
             User = context.Users
                         .Include(u => u.Photo)
                         .FirstOrDefault(a => PasswordHasher.UserId == a.Id)??new User();
@@ -58,7 +58,7 @@ public class ProfilViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            // Log or display the error
+     
             System.Windows.MessageBox.Show($"Error loading dashboard: {ex.Message}");
         }
     }
@@ -81,6 +81,8 @@ public class ProfilViewModel : BaseViewModel
 
     private void ChangePhoto(object obj)
     {
+
+        //bax
         using (var openFileDialog = new OpenFileDialog
         {
             Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png"
