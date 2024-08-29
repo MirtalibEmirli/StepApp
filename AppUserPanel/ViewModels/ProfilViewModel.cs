@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using CreditCard = AppUserPanel.Pages.CreditCard;
 
 namespace AppUserPanel.ViewModels;
 
@@ -66,7 +67,7 @@ public class ProfilViewModel : BaseViewModel
     private bool IsChangeName(object? obj)
     {
 
-        if (User.UserName.Length> 3)
+        if (User.UserName.Length>= 3)
         {
             return true;
         }
@@ -76,13 +77,16 @@ public class ProfilViewModel : BaseViewModel
 
     private void DasboardExecute(object? obj)
     {
-        CurrentView = new DefaultView();
+        if (obj is Page page)
+        {
+            page.NavigationService.Navigate(new Dashboard());
+        }
     }
 
     private void ChangePhoto(object obj)
     {
 
-        //bax
+         
         using (var openFileDialog = new OpenFileDialog
         {
             Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png"
@@ -140,8 +144,7 @@ public class ProfilViewModel : BaseViewModel
 
     private void AddCreditCard(object obj)
     {
-        // Implement logic to add a new credit card
-        // CurrentView = new AddCreditCardView();
+        CurrentView = new CreditCard();
     }
 
     private void ViewCreditCards(object obj)

@@ -48,15 +48,11 @@
                 </Button>
                 <Button Command="{Binding AddCreditCardCommand}" Style="{StaticResource menubutton}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Add Credit Card"/>
+                        <TextBlock Text="Credit Card"/>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding ViewCreditCardsCommand}" Style="{StaticResource menubutton}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="View Credit Cards"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding DashBoardCommand}" Style="{StaticResource menubutton}">
+                 
+                <Button Command="{Binding DashBoardCommand}" Style="{StaticResource menubutton}" CommandParameter="{Binding ElementName=page}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="DashBoard"/>
                     </StackPanel>

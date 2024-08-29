@@ -53,7 +53,7 @@ namespace AppUserPanel.ViewModels
             var product = SelectedProduct;
 
 
-            var result = MessageBox.Show("Bir product ucun No ,secdiyinizin  hamsini almaqcun Yes ", "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show("Bir product ucun No ,secdiyinizin  hamsini silmek ucun Yes ", "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
             var usersCart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
             var buyingProduct = dbContext.CartProducts.FirstOrDefault(x => x.ProductId == product.Id && x.CartId == usersCart.Id);
 
@@ -88,7 +88,62 @@ namespace AppUserPanel.ViewModels
             return SelectedProduct != null;
         }
 
+
         private void BuyProduct(object parameter)
+        {
+            var product = SelectedProduct;
+            var cart = dbContext.CreditCarts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+
+            if (cart == null)
+            {
+                MessageBox.Show("Cart not found.");
+                return;
+            }
+
+            var result = MessageBox.Show("Do you want to buy this product?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                var usersCart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
+                var buyingProduct = dbContext.CartProducts.FirstOrDefault(x => x.ProductId == product.Id && x.CartId == usersCart.Id);
+
+                if (buyingProduct == null)
+                {
+                    MessageBox.Show("Product not found in cart.");
+                    return;
+                }
+
+                var totalAmount = product.Price * buyingProduct.Quantity;
+
+                if (cart.money < totalAmount)
+                {
+                    MessageBox.Show("Insufficient funds.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                 
+                cart.money -= totalAmount;
+                dbContext.CreditCarts.Update(cart);
+
+                var order = new OrderItem
+                {
+                    ProductId = product.Id,
+                    UserId = PasswordHasher.UserId,
+                    Quantity = buyingProduct.Quantity
+                };
+                dbContext.OrderItems.Add(order);
+
+                dbContext.CartProducts.Remove(buyingProduct);
+                dbContext.SaveChanges();
+
+                MessageBox.Show($"You have successfully bought {buyingProduct.Quantity} {product.Name}(s).");
+                Products = new();
+                LoadProducts();
+            }
+        }
+
+
+        private void BuyProduct2(object parameter)
         {
             var product = SelectedProduct;
             var cart = dbContext.CreditCarts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);

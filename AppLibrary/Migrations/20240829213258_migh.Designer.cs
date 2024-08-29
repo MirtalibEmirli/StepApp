@@ -4,6 +4,7 @@ using AppLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppLibrary.Migrations
 {
     [DbContext(typeof(MirtalibDbContext))]
-    partial class MirtalibDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240829213258_migh")]
+    partial class migh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,6 +128,15 @@ namespace AppLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CVV")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -133,8 +145,7 @@ namespace AppLibrary.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("CreditCarts");
                 });
@@ -380,8 +391,8 @@ namespace AppLibrary.Migrations
             modelBuilder.Entity("AppLibrary.Models.CreditCard", b =>
                 {
                     b.HasOne("AppLibrary.Models.User", "User")
-                        .WithOne("CreditCard")
-                        .HasForeignKey("AppLibrary.Models.CreditCard", "UserId")
+                        .WithMany("CreditCards")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -505,7 +516,7 @@ namespace AppLibrary.Migrations
 
             modelBuilder.Entity("AppLibrary.Models.User", b =>
                 {
-                    b.Navigation("CreditCard");
+                    b.Navigation("CreditCards");
 
                     b.Navigation("History");
 

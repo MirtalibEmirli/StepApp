@@ -12,10 +12,10 @@ namespace AppUserPanel.ViewModels
 {
     public class OrdersViewModel : BaseViewModel
     {
-        private ObservableCollection<Order> _orders;
+        private ObservableCollection<OrderItem> _orders;
         private readonly MirtalibDbContext _dbContext;
 
-        public ObservableCollection<Order> Orders
+        public ObservableCollection<OrderItem> Orders
         {
             get => _orders;
             set
@@ -33,13 +33,16 @@ namespace AppUserPanel.ViewModels
 
         private void LoadOrders(int userId)
         {
-            var userOrders = _dbContext.Orders
+            var userOrders = _dbContext.OrderItems
                 .Where(o => o.UserId == userId)
-                .Include(o => o.Products)
-                .ThenInclude(p => p.Photo)
+                .Include(o => o.Product)
+                    .ThenInclude(p => p.Photo)
+                .Include(o => o.Product)
+                    .ThenInclude(p => p.Category) 
                 .ToList();
 
-            Orders = new ObservableCollection<Order>(userOrders);
+            Orders = new ObservableCollection<OrderItem>(userOrders);
         }
+
     }
 }
