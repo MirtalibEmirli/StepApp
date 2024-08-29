@@ -35,6 +35,7 @@ namespace AdmnPanel.ViewModel
                 var users = context.Users
           .Include(u => u.Photo) 
           .ToList();
+                Users = new ObservableCollection<User>( users);
 
 
 

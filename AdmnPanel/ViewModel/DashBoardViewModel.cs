@@ -38,7 +38,12 @@ namespace AdmnPanel.ViewModel
                 OnPropertyChanged(nameof(Products));
             }
         }
-
+        private Product _selectedProduct;
+        public Product SelectedProduct
+        {
+            get { return _selectedProduct; }
+            set { _selectedProduct = value; OnPropertyChanged(); }
+        }
         public DashboardViewModel()
         {
             CategoryCommand = new RelayCommand(CategoryCommandExecute);
@@ -53,7 +58,15 @@ namespace AdmnPanel.ViewModel
 
         private void DeleteExecute(object? obj)
         {
-             ////
+          var result=  MessageBox.Show("Bu Mehsulu silmek isdeyirsiz?","Confirm",MessageBoxButton.YesNo,MessageBoxImage.Warning);
+            if (result==MessageBoxResult.Yes)
+            {
+                dbContext.Products.Remove(SelectedProduct);
+                dbContext.SaveChanges();
+                LoadProducts();
+                MessageBox.Show("Product silindi");
+            }
+            
         }
 
         private void RefreshDashboard(object? obj)
@@ -70,7 +83,7 @@ namespace AdmnPanel.ViewModel
             }
         }
 
-        //burda dashboarda back edirem yuklenmir ancaq login olanda elave olunan product gelir
+         
         private void LoadProducts()
         {
 
