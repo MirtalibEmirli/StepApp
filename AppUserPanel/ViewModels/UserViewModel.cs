@@ -3,10 +3,18 @@ using AppLibrary.Models;
 using AppUserPanel.Commands;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Reflection.Metadata;
 using System.Security.Policy;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
-
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Net.Mail;
+using System.Net;
+using System.Windows.Interop;
+using Document = iTextSharp.text.Document;
 namespace AppUserPanel.ViewModels
 {
     public class UserViewModel : BaseViewModel
@@ -31,8 +39,9 @@ namespace AppUserPanel.ViewModels
         }
         public ICommand BuyCommand { get; }
         public ICommand CancelCommand { get; }
-
-
+        decimal total;
+        string name;
+        PhotoProduct photoProduct;
         public UserViewModel()
         {
             dbContext = new();
@@ -41,6 +50,7 @@ namespace AppUserPanel.ViewModels
             BackCommand = new RelayCommand(BackCommandExecute);
             CancelCommand = new RelayCommand(Cancelexecute, IsExeCuteCancell);
             LoadProducts();
+
         }
 
         private bool IsExeCuteCancell(object? obj)
@@ -117,14 +127,15 @@ namespace AppUserPanel.ViewModels
 
                 if (cart.money < totalAmount)
                 {
-                    MessageBox.Show("Insufficient funds.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("NoMoney broi", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                 
+                photoProduct = buyingProduct.Product.Photo;
                 cart.money -= totalAmount;
                 dbContext.CreditCarts.Update(cart);
-
+                total = totalAmount;
+                name = SelectedProduct.Name;
                 var order = new OrderItem
                 {
                     ProductId = product.Id,
@@ -139,65 +150,94 @@ namespace AppUserPanel.ViewModels
                 MessageBox.Show($"You have successfully bought {buyingProduct.Quantity} {product.Name}(s).");
                 Products = new();
                 LoadProducts();
+
+                SendVerificationCode();
+
             }
         }
 
 
-        private void BuyProduct2(object parameter)
+        private void SendVerificationCode()
         {
-            var product = SelectedProduct;
-            var cart = dbContext.CreditCarts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
-            
-             
-            var result = MessageBox.Show("Bir product ucun No ,secdiyinizin  hamsini almaqcun Yes ", "Information", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            var usersCart = dbContext.Carts.FirstOrDefault(x => x.UserId == PasswordHasher.UserId);
-            var buyingProduct = dbContext.CartProducts.FirstOrDefault(x => x.ProductId == product.Id && x.CartId == usersCart.Id);
-
-            OrderItem order = new();
-            order.ProductId = product.Id;
-            order.UserId = PasswordHasher.UserId;
-
-            if (result == MessageBoxResult.No)
+            Thread thread = new Thread(() =>
             {
-                if (cart.money < product.Price)
+                var context = new MirtalibDbContext();
+                var NewUser = context.Users.FirstOrDefault(x => x.Id == PasswordHasher.UserId);
+                string senderEmail = "mirtalibemirli498@gmail.com";
+                string senderPassword = "eiwk gysv kmwd tttx";
+                string recipientEmail = NewUser.Email;
+                string code = @$"{total} $ you paid for {name} in our Store, Thank you :)";
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587;
+                string pdfFilePath = "Bill.pdf";
+                string imageFilePath = "ProductImage.jpg";
+
+                // Generate PDF
+                GeneratePdf(pdfFilePath, code);
+
+                // Save product image to file
+                SaveProductImage(photoProduct, imageFilePath);
+
+                using (SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort))
                 {
-                    MessageBox.Show("Balansinizda kifayet qeder vesait yoxdur", "Xeta", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
+
+                    using (MailMessage mailMessage = new MailMessage(senderEmail, recipientEmail))
+                    {
+                        mailMessage.Subject = "Bill You Get from Mr Market :)";
+                        mailMessage.Body = @$"{total} $ you paid for {name} product in our Store, Thank you :)";
+
+                        if (File.Exists(pdfFilePath))
+                        {
+                            mailMessage.Attachments.Add(new Attachment(pdfFilePath));
+                        }
+
+                        if (File.Exists(imageFilePath))
+                        {
+                            mailMessage.Attachments.Add(new Attachment(imageFilePath));
+                        }
+
+                        smtpClient.Send(mailMessage);
+                    }
                 }
-                buyingProduct.Quantity = buyingProduct.Quantity - 1;
-                    dbContext.CartProducts.Update(buyingProduct);
+
+                // Cleanup files
+                if (File.Exists(pdfFilePath))
+                {
+                    File.Delete(pdfFilePath);
+                }
+
+                if (File.Exists(imageFilePath))
+                {
+                    File.Delete(imageFilePath);
+                }
+            });
+
+            thread.Start();
+        }
 
 
-                order.Quantity = 1;
-                dbContext.OrderItems.Add(order);
 
-                dbContext.SaveChanges();
-
-                MessageBox.Show($"{buyingProduct.Product.Name} dan 1 eded aldiniz ", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                var cash = buyingProduct.Product.Price;
-                cart.money -=cash;
-            }
-            else
+        private void GeneratePdf(string filePath, string Code)
+        {
+            using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                if (cart.money < product.Price* buyingProduct.Quantity)
+                using (iTextSharp.text.Document document = new iTextSharp.text.Document())
                 {
-                    MessageBox.Show("Balansinizda kifayet qeder vesait yoxdur", "Xeta", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    PdfWriter.GetInstance(document, fs);
+                    document.Open();
+                    document.Add(new iTextSharp.text.Paragraph($"Your Bill is {Code}"));
+                    document.Close();
                 }
-                dbContext.Remove(buyingProduct);
-                var cash = buyingProduct.Product.Price;
-                cart.money -= cash*buyingProduct.Quantity;
-                dbContext.CreditCarts.Update(cart);
-
-                order.Quantity = buyingProduct.Quantity;
-                dbContext.OrderItems.Add(order);
-
-                dbContext.SaveChanges();
-                MessageBox.Show($"{buyingProduct.Product.Name} dan {buyingProduct.Quantity} qeder aldiniz ", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-
             }
-            Products = new();
-            LoadProducts();
+        }
+        private void SaveProductImage(PhotoProduct photoProduct, string filePath)
+        {
+            if (photoProduct != null && photoProduct.Bytes != null)
+            {
+                File.WriteAllBytes(filePath, photoProduct.Bytes);
+            }
         }
 
         private void LoadProducts()
