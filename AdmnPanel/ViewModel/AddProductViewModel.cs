@@ -6,6 +6,7 @@ using AppLibrary.Models;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -108,34 +109,41 @@ namespace AdmnPanel.ViewModel
                 {
                     if (!dbContext.Products.Any(p => p.Name == ProductName))
                     {
-                        var product = new Product
+                        if (ProductPrice > 0)
                         {
-                            Name = ProductName,
-                            Price = ProductPrice,
-                            Quantity = ProductQuantity,
-                            CategoryId = SelectedCategory?.Id ?? 1,
-                        };
-                        dbContext.Products.Add(product);
-                        dbContext.SaveChanges();
+                            var product = new Product
+                            {
+                                Name = ProductName,
+                                Price = ProductPrice,
+                                Quantity = ProductQuantity,
+                                CategoryId = SelectedCategory?.Id ?? 1,
+                            };
+                            dbContext.Products.Add(product);
+                            dbContext.SaveChanges();
 
-                        foreach (var photo in Photos)
-                        {
-                            photo.ProductId = product.Id;
-                            dbContext.PhotoProducts.Add(photo);
+                            foreach (var photo in Photos)
+                            {
+                                photo.ProductId = product.Id;
+                                dbContext.PhotoProducts.Add(photo);
+                            }
+
+                            dbContext.SaveChanges();
+
+                            //cleaning
+                            product = new Product();
+                            _productName = string.Empty;
+                            _productPrice = 0;
+                            _productQuantity = 0;
+                            SelectedCategory = new Category();
+                            Photos = new ObservableCollection<PhotoProduct>();
+                            System.Windows.MessageBox.Show("Product added successfully!");
+                            page.NavigationService.Navigate(new Dashboard());
+                            //burda problem var add edirem amma ondan sora propertyler bosalmr
                         }
-
-                        dbContext.SaveChanges();
-
-                        //cleaning
-                        product = new Product();
-                        _productName = string.Empty;
-                        _productPrice = 0;
-                        _productQuantity = 0;
-                        SelectedCategory = new Category();
-                        Photos = new ObservableCollection<PhotoProduct>();
-                        System.Windows.MessageBox.Show("Product added successfully!");
-                        page.NavigationService.Navigate(new Dashboard());
-                        //burda problem var add edirem amma ondan sora propertyler bosalmr
+                        else
+                        {
+                            MessageBox.Show("Enter valid Price");
+                        }
                     }
                     else
                     {
@@ -164,8 +172,8 @@ namespace AdmnPanel.ViewModel
                 {
                     Bytes = imageBytes,
                     FileExtension = Path.GetExtension(openFileDialog.FileName),
-                    Description = "Product Photo", // Opsiyonel: bir açıklama ekleyin
-                    Size = imageBytes.Length / 1024m, // KB olarak boyut
+                    Description = "Product Photo",  
+                    Size = imageBytes.Length / 1024m, 
                 };
                 Photos.Add(photo);
             }

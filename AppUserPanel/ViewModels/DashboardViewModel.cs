@@ -138,17 +138,30 @@ namespace AppUserPanel.ViewModels
         private void LoadProducts()
         {
             Categories = new ObservableCollection<Category>(dbContext.Categories.ToList());
-            if(SelectedCategory == null)
+
+            if (SelectedCategory == null)
             {
-                var datass = dbContext.Products.Include(x => x.Photo).Include(x=> x.Category).ToList();
-                Products = new ObservableCollection<Product>(datass);
+                  
+                var productsData = dbContext.Products
+                  .Where(p=> p.Quantity>1) //filter edmek ki bitibse gorunmesin
+                    .Include(p => p.Photo)
+                    .Include(p => p.Category)
+                    .ToList();
+
+                Products = new ObservableCollection<Product>(productsData);
             }
             else
             {
-                var datass = dbContext.Products.Include(x => x.Photo).Include(x => x.Category).Where(x => x.CategoryId == SelectedCategory.Id).ToList();
-                Products = new ObservableCollection<Product>(datass);
+                var productsData = dbContext.Products
+                    .Where(p => p.CategoryId == SelectedCategory.Id && p.Quantity > 1)
+                    .Include(p => p.Photo)
+                    .Include(p => p.Category)
+                    .ToList();
+
+                Products = new ObservableCollection<Product>(productsData);
             }
         }
+
 
 
 

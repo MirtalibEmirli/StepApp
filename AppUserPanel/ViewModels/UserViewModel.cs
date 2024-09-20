@@ -106,6 +106,7 @@ namespace AppUserPanel.ViewModels
 
             if (cart == null)
             {
+              
                 MessageBox.Show("Cart not found.");
                 return;
             }
@@ -172,10 +173,9 @@ namespace AppUserPanel.ViewModels
                 string pdfFilePath = "Bill.pdf";
                 string imageFilePath = "ProductImage.jpg";
 
-                // Generate PDF
+               
                 GeneratePdf(pdfFilePath, code);
-
-                // Save product image to file
+ 
                 SaveProductImage(photoProduct, imageFilePath);
 
                 using (SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort))
